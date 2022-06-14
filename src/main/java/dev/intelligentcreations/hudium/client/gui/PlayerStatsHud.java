@@ -20,7 +20,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -80,11 +80,11 @@ public class PlayerStatsHud {
                         client.getItemRenderer().renderGuiItemIcon(stack, i, i);
                         textRenderer.drawWithShadow(matrices, I18n.translate(state.getBlock().getTranslationKey()), i + 17, i, 16777215);
                         loadBlockInfoPlugins(matrices, client, camera, tickDelta, textRenderer, state, bhr.getBlockPos(), m);
-                        textRenderer.drawWithShadow(matrices, new LiteralText(FabricLoader.getInstance().getModContainer(Registry.BLOCK.getId(state.getBlock()).getNamespace()).get().getMetadata().getName()).formatted(Formatting.BLUE, Formatting.ITALIC), i + 17, i + m, 5592575);
+                        textRenderer.drawWithShadow(matrices, Text.literal(FabricLoader.getInstance().getModContainer(Registry.BLOCK.getId(state.getBlock()).getNamespace()).get().getMetadata().getName()).formatted(Formatting.BLUE, Formatting.ITALIC), i + 17, i + m, 5592575);
                     } else {
                         textRenderer.drawWithShadow(matrices, I18n.translate(state.getBlock().getTranslationKey()), i, i, 16777215);
                         loadBlockInfoPlugins(matrices, client, camera, tickDelta, textRenderer, state, bhr.getBlockPos(), m);
-                        textRenderer.drawWithShadow(matrices, new LiteralText(FabricLoader.getInstance().getModContainer(Registry.BLOCK.getId(state.getBlock()).getNamespace()).get().getMetadata().getName()).formatted(Formatting.BLUE, Formatting.ITALIC), i, i + m, 5592575);
+                        textRenderer.drawWithShadow(matrices, Text.literal(FabricLoader.getInstance().getModContainer(Registry.BLOCK.getId(state.getBlock()).getNamespace()).get().getMetadata().getName()).formatted(Formatting.BLUE, Formatting.ITALIC), i, i + m, 5592575);
                     }
                 }
                 bl = true;
@@ -107,7 +107,7 @@ public class PlayerStatsHud {
                     m = m + 9;
                 }
                 loadEntityInfoPlugins(matrices, client, camera, tickDelta, textRenderer, entity, m);
-                textRenderer.drawWithShadow(matrices, new LiteralText(FabricLoader.getInstance().getModContainer(Registry.ENTITY_TYPE.getId(entity.getType()).getNamespace()).get().getMetadata().getName()).formatted(Formatting.BLUE, Formatting.ITALIC), i, i + m, 5592575);
+                textRenderer.drawWithShadow(matrices, Text.literal(FabricLoader.getInstance().getModContainer(Registry.ENTITY_TYPE.getId(entity.getType()).getNamespace()).get().getMetadata().getName()).formatted(Formatting.BLUE, Formatting.ITALIC), i, i + m, 5592575);
             }
             bl = true;
         }

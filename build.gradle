@@ -30,10 +30,11 @@ dependencies {
 
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	include("com.github.Draylar.omega-config:omega-config-base:${project.omega_config_version}")
-	modImplementation("com.github.Draylar.omega-config:omega-config-base:${project.omega_config_version}")
-	include("com.github.Draylar.omega-config:omega-config-gui:${project.omega_config_version}")
-	modImplementation("com.github.Draylar.omega-config:omega-config-gui:${project.omega_config_version}")
+	// We use Luligabi1's fork here since there's no release of Omega Config for 1.19 for now
+	include("com.github.Luligabi1.omega-config:omega-config-base:draft~builder-SNAPSHOT")
+	modImplementation("com.github.Luligabi1.omega-config:omega-config-base:draft~builder-SNAPSHOT")
+	include("com.github.Luligabi1.omega-config:omega-config-gui:draft~builder-SNAPSHOT")
+	modImplementation("com.github.Luligabi1.omega-config:omega-config-gui:draft~builder-SNAPSHOT")
 	modRuntimeOnly ("com.terraformersmc:modmenu:${project.modmenu_version}")
 }
 
