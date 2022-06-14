@@ -5,6 +5,7 @@ import dev.intelligentcreations.hudium.client.gui.PlayerStatsHud;
 import dev.intelligentcreations.hudium.util.RaycastUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.hud.DebugHud;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
@@ -30,11 +31,14 @@ public abstract class InGameHudMixin {
         TextRenderer textRenderer = this.getTextRenderer();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         if (!client.options.hudHidden) {
-            if (!this.getCameraPlayer().isCreative() && !this.getCameraPlayer().isSpectator()) {
+            if (!player.isCreative() && !player.isSpectator()) {
                 PlayerStatsHud.renderMiscValues(matrices, player, textRenderer, scaledWidth, scaledHeight);
             }
-            if (!PlayerStatsHud.renderBlockInfo(matrices, client, this.getCameraPlayer(), tickDelta, textRenderer)) {
-                PlayerStatsHud.renderEntityInfo(matrices, client, this.getCameraPlayer(), tickDelta, textRenderer);
+            if (!this.client.options.debugEnabled) {
+                if (!PlayerStatsHud.renderBlockInfo(matrices, client, player, tickDelta, textRenderer)) {
+                    PlayerStatsHud.renderEntityInfo(matrices, client, player, tickDelta, textRenderer);
+                }
+                PlayerStatsHud.renderDurabilityInfo(matrices, client, player, textRenderer, scaledHeight);
             }
         }
         RenderSystem.disableBlend();

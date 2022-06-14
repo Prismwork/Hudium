@@ -24,8 +24,14 @@ public class HudiumConfig implements Config {
     @Comment(value = "Specify whether the block info will be displayed.")
     public boolean displayBlockInfo = true;
 
+    @Comment(value = "Specify whether the fluid info will be displayed.")
+    public boolean displayFluidInfo = true;
+
     @Comment(value = "Specify whether the entity info will be displayed.")
     public boolean displayEntityInfo = true;
+
+    @Comment(value = "Specify whether the durability info will be displayed.")
+    public boolean displayDurabilityInfo = true;
 
     @Override
     public String getName() {

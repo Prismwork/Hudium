@@ -1,11 +1,14 @@
 package dev.intelligentcreations.hudium.api.info.plugin;
 
 import dev.intelligentcreations.hudium.HudiumClient;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Environment(EnvType.CLIENT)
 public class InfoPluginHandler {
     private static final List<InfoPlugin> plugins = new ArrayList<>();
 
