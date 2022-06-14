@@ -1,11 +1,15 @@
 {
   "config.hudium.hudium-config": "Hudium Config",
 
+  "info.hudium.breakProgress": "Breaking Progress: ",
+
   "configEntry.hudium-config.displayHealthValue": "Display Health Value",
   "configEntry.hudium-config.displayHungerValue": "Display Hunger Value",
   "configEntry.hudium-config.displaySaturationValue": "Display Saturation Value",
   "configEntry.hudium-config.displayArmorValue": "Display Armor Value",
   "configEntry.hudium-config.displayAirValue": "Display Air Value",
+  "configEntry.hudium-config.displayInfoX": "Display Info X",
+  "configEntry.hudium-config.displayInfoY": "Display Info Y",
   "configEntry.hudium-config.displayBlockInfo": "Display Block Info",
   "configEntry.hudium-config.displayFluidInfo": "Display Fluid Info",
   "configEntry.hudium-config.displayEntityInfo": "Display Entity Info",

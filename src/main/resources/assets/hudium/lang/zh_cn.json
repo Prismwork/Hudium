@@ -1,11 +1,15 @@
 {
   "config.hudium.hudium-config": "Hudium 配置",
 
+  "info.hudium.breakProgress": "破坏进度: ",
+
   "configEntry.hudium-config.displayHealthValue": "显示生命数值",
   "configEntry.hudium-config.displayHungerValue": "显示饱食度数值",
   "configEntry.hudium-config.displaySaturationValue": "显示饱和度数值",
   "configEntry.hudium-config.displayArmorValue": "显示盔甲值数值",
   "configEntry.hudium-config.displayAirValue": "显示氧气数值",
+  "configEntry.hudium-config.displayInfoX": "信息X坐标",
+  "configEntry.hudium-config.displayInfoY": "信息Y坐标",
   "configEntry.hudium-config.displayBlockInfo": "显示方块信息",
   "configEntry.hudium-config.displayFluidInfo": "显示流体信息",
   "configEntry.hudium-config.displayEntityInfo": "显示实体信息",

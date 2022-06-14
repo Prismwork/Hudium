@@ -16,7 +16,6 @@ import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -25,7 +24,6 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 
@@ -69,7 +67,8 @@ public class PlayerStatsHud {
     public static boolean renderBlockInfo(MatrixStack matrices, MinecraftClient client, PlayerEntity camera, float tickDelta, TextRenderer textRenderer) {
         boolean bl = false;
         HitResult result = RaycastUtil.getBlockHitResult(camera, tickDelta);
-        int i = 4;
+        int i = HudiumClient.CONFIG.displayInfoX;
+        int j = HudiumClient.CONFIG.displayInfoY;
         if (result instanceof BlockHitResult bhr) {
             int m = 9;
             BlockState state = camera.getWorld().getBlockState(bhr.getBlockPos());
@@ -77,15 +76,19 @@ public class PlayerStatsHud {
             if (!state.isOf(Blocks.AIR) && !state.isOf(Blocks.CAVE_AIR) && !state.isOf(Blocks.VOID_AIR)) {
                 if (HudiumClient.CONFIG.displayBlockInfo) {
                     if (stack != null) {
-                        client.getItemRenderer().renderGuiItemIcon(stack, i, i);
-                        textRenderer.drawWithShadow(matrices, I18n.translate(state.getBlock().getTranslationKey()), i + 17, i, 16777215);
-                        loadBlockInfoPlugins(matrices, client, camera, tickDelta, textRenderer, state, bhr.getBlockPos(), m);
-                        textRenderer.drawWithShadow(matrices, Text.literal(FabricLoader.getInstance().getModContainer(Registry.BLOCK.getId(state.getBlock()).getNamespace()).get().getMetadata().getName()).formatted(Formatting.BLUE, Formatting.ITALIC), i + 17, i + m, 5592575);
-                    } else {
-                        textRenderer.drawWithShadow(matrices, I18n.translate(state.getBlock().getTranslationKey()), i, i, 16777215);
-                        loadBlockInfoPlugins(matrices, client, camera, tickDelta, textRenderer, state, bhr.getBlockPos(), m);
-                        textRenderer.drawWithShadow(matrices, Text.literal(FabricLoader.getInstance().getModContainer(Registry.BLOCK.getId(state.getBlock()).getNamespace()).get().getMetadata().getName()).formatted(Formatting.BLUE, Formatting.ITALIC), i, i + m, 5592575);
+                        client.getItemRenderer().renderGuiItemIcon(stack, i, j);
+                        i += 17;
                     }
+                    textRenderer.drawWithShadow(matrices, I18n.translate(state.getBlock().getTranslationKey()), i, j, 16777215);
+                    if (!InfoPluginHandler.getPlugins().isEmpty()) {
+                        for (int q = 0; q < InfoPluginHandler.getPlugins().size(); q++) {
+                            if (InfoPluginHandler.getPlugins().get(q) instanceof BlockInfoPlugin plugin) {
+                                plugin.addInfo(matrices, client, camera, tickDelta, textRenderer, state, bhr.getBlockPos(), i, j + m);
+                                if (plugin.occupySpace()) m += 9;
+                            }
+                        }
+                    }
+                    textRenderer.drawWithShadow(matrices, Text.literal(FabricLoader.getInstance().getModContainer(Registry.BLOCK.getId(state.getBlock()).getNamespace()).get().getMetadata().getName()).formatted(Formatting.BLUE, Formatting.ITALIC), i, j + m, 5592575);
                 }
                 bl = true;
             }
@@ -95,19 +98,23 @@ public class PlayerStatsHud {
 
     public static boolean renderEntityInfo(MatrixStack matrices, MinecraftClient client, PlayerEntity camera, float tickDelta, TextRenderer textRenderer) {
         boolean bl = false;
-        int i = 4;
+        int i = HudiumClient.CONFIG.displayInfoX;
+        int j = HudiumClient.CONFIG.displayInfoY;
         HitResult result = RaycastUtil.getEntityHitResult(camera, tickDelta);
         if (result instanceof EntityHitResult ehr) {
             if (HudiumClient.CONFIG.displayEntityInfo) {
                 Entity entity = ehr.getEntity();
-                textRenderer.drawWithShadow(matrices, entity.getName(), i, i, 16777215);
+                textRenderer.drawWithShadow(matrices, entity.getName(), i, j, 16777215);
                 int m = 9;
-                if (entity instanceof LivingEntity livingEntity) {
-                    textRenderer.drawWithShadow(matrices, "\u2665 " + livingEntity.getHealth() + "/" + livingEntity.getMaxHealth(), i, i + m, 16733525);
-                    m = m + 9;
+                if (!InfoPluginHandler.getPlugins().isEmpty()) {
+                    for (int q = 0; q < InfoPluginHandler.getPlugins().size(); q++) {
+                        if (InfoPluginHandler.getPlugins().get(q) instanceof EntityInfoPlugin plugin) {
+                            plugin.addInfo(matrices, client, camera, tickDelta, textRenderer, entity, i, j + m);
+                            if (plugin.occupySpace()) m += 9;
+                        }
+                    }
                 }
-                loadEntityInfoPlugins(matrices, client, camera, tickDelta, textRenderer, entity, m);
-                textRenderer.drawWithShadow(matrices, Text.literal(FabricLoader.getInstance().getModContainer(Registry.ENTITY_TYPE.getId(entity.getType()).getNamespace()).get().getMetadata().getName()).formatted(Formatting.BLUE, Formatting.ITALIC), i, i + m, 5592575);
+                textRenderer.drawWithShadow(matrices, Text.literal(FabricLoader.getInstance().getModContainer(Registry.ENTITY_TYPE.getId(entity.getType()).getNamespace()).get().getMetadata().getName()).formatted(Formatting.BLUE, Formatting.ITALIC), i, j + m, 5592575);
             }
             bl = true;
         }
@@ -157,28 +164,6 @@ public class PlayerStatsHud {
                 client.getItemRenderer().renderGuiItemIcon(offHandStack, i, scaledHeight - i - 80);
                 if (offHandStack.isDamageable()) {
                     textRenderer.drawWithShadow(matrices, String.valueOf(offHandStack.getMaxDamage() - offHandStack.getDamage()), i + 17, scaledHeight - i - 76, 16777215);
-                }
-            }
-        }
-    }
-
-    private static void loadBlockInfoPlugins(MatrixStack matrices, MinecraftClient client, PlayerEntity camera, float tickDelta, TextRenderer textRenderer, BlockState state, BlockPos pos, int m) {
-        if (!InfoPluginHandler.getPlugins().isEmpty()) {
-            for (int q = 0; q < InfoPluginHandler.getPlugins().size(); q++) {
-                if (InfoPluginHandler.getPlugins().get(q) instanceof BlockInfoPlugin plugin) {
-                    plugin.addInfo(matrices, client, camera, tickDelta, textRenderer, state, pos);
-                    m = m + 9;
-                }
-            }
-        }
-    }
-
-    private static void loadEntityInfoPlugins(MatrixStack matrices, MinecraftClient client, PlayerEntity camera, float tickDelta, TextRenderer textRenderer, Entity entity, int m) {
-        if (!InfoPluginHandler.getPlugins().isEmpty()) {
-            for (int q = 0; q < InfoPluginHandler.getPlugins().size(); q++) {
-                if (InfoPluginHandler.getPlugins().get(q) instanceof EntityInfoPlugin plugin) {
-                    plugin.addInfo(matrices, client, camera, tickDelta, textRenderer, entity);
-                    m = m + 9;
                 }
             }
         }

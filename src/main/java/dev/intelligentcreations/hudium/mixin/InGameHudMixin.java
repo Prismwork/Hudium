@@ -35,8 +35,8 @@ public abstract class InGameHudMixin {
                 PlayerStatsHud.renderMiscValues(matrices, player, textRenderer, scaledWidth, scaledHeight);
             }
             if (!this.client.options.debugEnabled) {
-                if (!PlayerStatsHud.renderBlockInfo(matrices, client, player, tickDelta, textRenderer)) {
-                    PlayerStatsHud.renderEntityInfo(matrices, client, player, tickDelta, textRenderer);
+                if (!PlayerStatsHud.renderEntityInfo(matrices, client, player, tickDelta, textRenderer)) {
+                    PlayerStatsHud.renderBlockInfo(matrices, client, player, tickDelta, textRenderer);
                 }
                 PlayerStatsHud.renderDurabilityInfo(matrices, client, player, textRenderer, scaledHeight);
             }
