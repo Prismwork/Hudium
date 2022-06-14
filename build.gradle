@@ -35,6 +35,18 @@ dependencies {
 	include("com.github.Draylar.omega-config:omega-config-gui:${project.omega_config_version}")
 	modImplementation("com.github.Draylar.omega-config:omega-config-gui:${project.omega_config_version}")
 	modRuntimeOnly ("com.terraformersmc:modmenu:${project.modmenu_version}")
+
+	modImplementation("teamreborn:energy:2.2.0") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+
+	// For testing purpose
+	modRuntimeOnly ("TechReborn:TechReborn-1.18:5.2.0") {
+		exclude group: "net.fabricmc.fabric-api" exclude group: "RebornCore"
+	}
+	modRuntimeOnly ("RebornCore:RebornCore-1.18:5.2.0") {
+		exclude group: "net.fabricmc.fabric-api"
+	}
 }
 
 processResources {
