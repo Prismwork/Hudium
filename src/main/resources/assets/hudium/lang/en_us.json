@@ -1,3 +1,5 @@
 {
-  "config.hudium.hudium-config": "Hudium Config"
+  "config.hudium.hudium-config": "Hudium Config",
+
+  "info.hudium.breakProgress": "Breaking Progress: "
 }

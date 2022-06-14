@@ -1,3 +1,5 @@
 {
-  "config.hudium.hudium-config": "Hudium 配置"
+  "config.hudium.hudium-config": "Hudium 配置",
+
+  "info.hudium.breakProgress": "破坏进度: "
 }
