@@ -2,6 +2,10 @@
   "config.hudium.hudium-config": "Hudium 配置",
 
   "info.hudium.breakProgress": "破坏进度: ",
+  "info.hudium.wardenAnger": "主要怒气: ",
+  "info.hudium.wardenCurrentTarget": "目前目标: ",
+  "info.hudium.shriekerWarningLevel": "激活次数: ",
+  "info.hudium.shriekerHasRiskSpawnWarden": "现在有可能生成监守者",
 
   "configEntry.hudium-config.displayHealthValue": "显示生命数值",
   "configEntry.hudium-config.displayHungerValue": "显示饱食度数值",

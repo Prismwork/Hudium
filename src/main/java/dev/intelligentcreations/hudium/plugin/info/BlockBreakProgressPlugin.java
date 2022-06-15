@@ -1,7 +1,7 @@
 package dev.intelligentcreations.hudium.plugin.info;
 
 import dev.intelligentcreations.hudium.api.info.plugin.BlockInfoPlugin;
-import dev.intelligentcreations.hudium.mixin.ClientPlayerInteractionManagerMixin;
+import dev.intelligentcreations.hudium.mixin.ClientPlayerInteractionManagerAccessor;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -15,7 +15,7 @@ public class BlockBreakProgressPlugin implements BlockInfoPlugin {
 
     @Override
     public void addInfo(MatrixStack matrices, MinecraftClient client, PlayerEntity camera, float tickDelta, TextRenderer textRenderer, BlockState state, BlockPos pos, int renderX, int renderY) {
-        int progress = (int) (((ClientPlayerInteractionManagerMixin) client.interactionManager).getCurrentBreakingProgress() * 100);
+        int progress = (int) (((ClientPlayerInteractionManagerAccessor) client.interactionManager).getCurrentBreakingProgress() * 100);
         occupySpace = progress > 0;
         if (occupySpace) {
             textRenderer.drawWithShadow(matrices, I18n.translate("info.hudium.breakProgress") + progress + "%", renderX, renderY, 5592405);

@@ -2,6 +2,14 @@
   "config.hudium.hudium-config": "Hudium Config",
 
   "info.hudium.breakProgress": "Breaking Progress: ",
+  "info.hudium.wardenAnger": "Prime Anger: ",
+  "info.hudium.wardenCurrentTarget": "Current Target: ",
+  "info.hudium.shriekerWarningLevel": "Warning Level: ",
+  "info.hudium.shriekerHasRiskSpawnWarden": "Now possible to spawn warden",
+
+  "info.hudium.wardenAngerLevel.angry": "Angry",
+  "info.hudium.wardenAngerLevel.agitated": "Agitated",
+  "info.hudium.wardenAngerLevel.calm": "Calm",
 
   "configEntry.hudium-config.displayHealthValue": "Display Health Value",
   "configEntry.hudium-config.displayHungerValue": "Display Hunger Value",

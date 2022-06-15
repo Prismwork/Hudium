@@ -30,7 +30,7 @@ import net.minecraft.util.registry.Registry;
 import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
-public class PlayerStatsHud {
+public class PlayerHud {
     public static void renderMiscValues(MatrixStack matrices, PlayerEntity player, TextRenderer textRenderer, int scaledWidth, int scaledHeight) {
         if (player != null) {
             int health = MathHelper.ceil(player.getHealth());
@@ -83,8 +83,10 @@ public class PlayerStatsHud {
                     if (!InfoPluginHandler.getPlugins().isEmpty()) {
                         for (int q = 0; q < InfoPluginHandler.getPlugins().size(); q++) {
                             if (InfoPluginHandler.getPlugins().get(q) instanceof BlockInfoPlugin plugin) {
-                                plugin.addInfo(matrices, client, camera, tickDelta, textRenderer, state, bhr.getBlockPos(), i, j + m);
-                                if (plugin.occupySpace()) m += 9;
+                                if (plugin.enabled()) {
+                                    plugin.addInfo(matrices, client, camera, tickDelta, textRenderer, state, bhr.getBlockPos(), i, j + m);
+                                    if (plugin.occupySpace()) m += 9;
+                                }
                             }
                         }
                     }
@@ -109,8 +111,10 @@ public class PlayerStatsHud {
                 if (!InfoPluginHandler.getPlugins().isEmpty()) {
                     for (int q = 0; q < InfoPluginHandler.getPlugins().size(); q++) {
                         if (InfoPluginHandler.getPlugins().get(q) instanceof EntityInfoPlugin plugin) {
-                            plugin.addInfo(matrices, client, camera, tickDelta, textRenderer, entity, i, j + m);
-                            if (plugin.occupySpace()) m += 9;
+                            if (plugin.enabled()) {
+                                plugin.addInfo(matrices, client, camera, tickDelta, textRenderer, entity, i, j + m);
+                                if (plugin.occupySpace()) m += 9 * plugin.occupySpaceLines();
+                            }
                         }
                     }
                 }
