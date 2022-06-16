@@ -20,6 +20,10 @@ repositories {
 		name = "TerraformersMC"
 		url = "https://maven.terraformersmc.com/releases/"
 	}
+	maven {
+		name 'Gegy'
+		url 'https://maven.gegy.dev'
+	}
 }
 
 dependencies {
@@ -33,9 +37,8 @@ dependencies {
 	// We use Luligabi1's fork here since there's no release of Omega Config for 1.19 for now
 	include("com.github.Luligabi1.omega-config:omega-config-base:draft~builder-SNAPSHOT")
 	modImplementation("com.github.Luligabi1.omega-config:omega-config-base:draft~builder-SNAPSHOT")
-	include("com.github.Luligabi1.omega-config:omega-config-gui:draft~builder-SNAPSHOT")
-	modImplementation("com.github.Luligabi1.omega-config:omega-config-gui:draft~builder-SNAPSHOT")
-	modRuntimeOnly ("com.terraformersmc:modmenu:${project.modmenu_version}")
+
+	include modImplementation("dev.lambdaurora:spruceui:${project.spruceui_version}")
 }
 
 processResources {

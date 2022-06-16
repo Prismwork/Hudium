@@ -7,7 +7,9 @@
   ],
   "client": [
     "ClientPlayerInteractionManagerMixin",
-    "InGameHudMixin"
+    "InGameHudMixin",
+    "TitleScreenMixin",
+    "GameMenuScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
