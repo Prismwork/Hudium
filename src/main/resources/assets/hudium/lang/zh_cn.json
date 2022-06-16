@@ -3,6 +3,11 @@
 
   "info.hudium.breakProgress": "破坏进度: ",
 
+  "info.hudium.direction.north": "北",
+  "info.hudium.direction.east": "东",
+  "info.hudium.direction.west": "西",
+  "info.hudium.direction.south": "南",
+
   "configEntry.hudium-config.displayHealthValue": "显示生命数值",
   "configEntry.hudium-config.displayHungerValue": "显示饱食度数值",
   "configEntry.hudium-config.displaySaturationValue": "显示饱和度数值",
@@ -13,5 +18,6 @@
   "configEntry.hudium-config.displayBlockInfo": "显示方块信息",
   "configEntry.hudium-config.displayFluidInfo": "显示流体信息",
   "configEntry.hudium-config.displayEntityInfo": "显示实体信息",
-  "configEntry.hudium-config.displayDurabilityInfo": "显示耐久信息"
+  "configEntry.hudium-config.displayDurabilityInfo": "显示耐久信息",
+  "configEntry.hudium-config.displayCoordinatesAndDirection": "显示坐标和朝向"
 }

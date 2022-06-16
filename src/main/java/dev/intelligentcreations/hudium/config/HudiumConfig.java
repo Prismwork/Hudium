@@ -39,6 +39,9 @@ public class HudiumConfig implements Config {
     @Comment(value = "Specify whether the durability info will be displayed.")
     public boolean displayDurabilityInfo = true;
 
+    @Comment(value = "Specify whether the player coordinates and direction will be displayed.")
+    public boolean displayCoordinatesAndDirection = true;
+
     @Override
     public String getName() {
         return "hudium-config";

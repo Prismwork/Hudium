@@ -1,9 +1,7 @@
 package dev.intelligentcreations.hudium.client.gui;
 
 import dev.intelligentcreations.hudium.HudiumClient;
-import dev.intelligentcreations.hudium.api.info.plugin.BlockInfoPlugin;
-import dev.intelligentcreations.hudium.api.info.plugin.EntityInfoPlugin;
-import dev.intelligentcreations.hudium.api.info.plugin.InfoPluginHandler;
+import dev.intelligentcreations.hudium.api.info.plugin.*;
 import dev.intelligentcreations.hudium.util.RaycastUtil;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -21,16 +19,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.hit.*;
+import net.minecraft.util.math.*;
 import net.minecraft.util.registry.Registry;
 
 import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
-public class PlayerStatsHud {
+public class PlayerHud {
     public static void renderMiscValues(MatrixStack matrices, PlayerEntity player, TextRenderer textRenderer, int scaledWidth, int scaledHeight) {
         if (player != null) {
             int health = MathHelper.ceil(player.getHealth());
@@ -83,8 +79,10 @@ public class PlayerStatsHud {
                     if (!InfoPluginHandler.getPlugins().isEmpty()) {
                         for (int q = 0; q < InfoPluginHandler.getPlugins().size(); q++) {
                             if (InfoPluginHandler.getPlugins().get(q) instanceof BlockInfoPlugin plugin) {
-                                plugin.addInfo(matrices, client, camera, tickDelta, textRenderer, state, bhr.getBlockPos(), i, j + m);
-                                if (plugin.occupySpace()) m += 9;
+                                if (plugin.enabled()) {
+                                    plugin.addInfo(matrices, client, camera, tickDelta, textRenderer, state, bhr.getBlockPos(), i, j + m);
+                                    if (plugin.occupySpace()) m += 9 * plugin.occupySpaceLines();
+                                }
                             }
                         }
                     }
@@ -109,8 +107,10 @@ public class PlayerStatsHud {
                 if (!InfoPluginHandler.getPlugins().isEmpty()) {
                     for (int q = 0; q < InfoPluginHandler.getPlugins().size(); q++) {
                         if (InfoPluginHandler.getPlugins().get(q) instanceof EntityInfoPlugin plugin) {
-                            plugin.addInfo(matrices, client, camera, tickDelta, textRenderer, entity, i, j + m);
-                            if (plugin.occupySpace()) m += 9;
+                            if (plugin.enabled()) {
+                                plugin.addInfo(matrices, client, camera, tickDelta, textRenderer, entity, i, j + m);
+                                if (plugin.occupySpace()) m += 9 * plugin.occupySpaceLines();
+                            }
                         }
                     }
                 }
@@ -166,6 +166,30 @@ public class PlayerStatsHud {
                     textRenderer.drawWithShadow(matrices, String.valueOf(offHandStack.getMaxDamage() - offHandStack.getDamage()), i + 17, scaledHeight - i - 76, 16777215);
                 }
             }
+        }
+    }
+
+    public static void renderCoordinatesAndDirection(MatrixStack matrices, PlayerEntity player, TextRenderer textRenderer, int scaledWidth) {
+        Vec3d pos = player.getPos();
+        Direction direction = player.getHorizontalFacing();
+        if (HudiumClient.CONFIG.displayCoordinatesAndDirection) {
+            double x = ((double)Math.round(pos.x * 10)) / 10;
+            double y = ((double)Math.round(pos.y * 10)) / 10;
+            double z = ((double)Math.round(pos.z * 10)) / 10;
+            String posString = "( " + x + " , " + y + " , " + z + " )";
+            int posStringWidth = textRenderer.getWidth(posString);
+            String directionString;
+            switch (direction) {
+                default -> directionString = "info.hudium.direction.north";
+                case NORTH -> directionString = "info.hudium.direction.north";
+                case EAST -> directionString = "info.hudium.direction.east";
+                case WEST -> directionString = "info.hudium.direction.west";
+                case SOUTH -> directionString = "info.hudium.direction.south";
+            }
+            String directionStringTranslated = "-= " + I18n.translate(directionString) + " =-";
+            int directionStringWidth = textRenderer.getWidth(directionStringTranslated);
+            textRenderer.drawWithShadow(matrices, posString, ((float)scaledWidth / 2) - ((float)posStringWidth / 2), 4, 16777215);
+            textRenderer.drawWithShadow(matrices, directionStringTranslated, ((float)scaledWidth / 2) - ((float)directionStringWidth / 2), 13, 16777215);
         }
     }
 }

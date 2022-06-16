@@ -1,15 +1,12 @@
 package dev.intelligentcreations.hudium.mixin;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import dev.intelligentcreations.hudium.client.gui.PlayerStatsHud;
-import dev.intelligentcreations.hudium.util.RaycastUtil;
+import dev.intelligentcreations.hudium.client.gui.PlayerHud;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.hud.DebugHud;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -32,13 +29,14 @@ public abstract class InGameHudMixin {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         if (!client.options.hudHidden) {
             if (!player.isCreative() && !player.isSpectator()) {
-                PlayerStatsHud.renderMiscValues(matrices, player, textRenderer, scaledWidth, scaledHeight);
+                PlayerHud.renderMiscValues(matrices, player, textRenderer, scaledWidth, scaledHeight);
             }
             if (!this.client.options.debugEnabled) {
-                if (!PlayerStatsHud.renderEntityInfo(matrices, client, player, tickDelta, textRenderer)) {
-                    PlayerStatsHud.renderBlockInfo(matrices, client, player, tickDelta, textRenderer);
+                if (!PlayerHud.renderEntityInfo(matrices, client, player, tickDelta, textRenderer)) {
+                    PlayerHud.renderBlockInfo(matrices, client, player, tickDelta, textRenderer);
                 }
-                PlayerStatsHud.renderDurabilityInfo(matrices, client, player, textRenderer, scaledHeight);
+                PlayerHud.renderDurabilityInfo(matrices, client, player, textRenderer, scaledHeight);
+                PlayerHud.renderCoordinatesAndDirection(matrices, player, textRenderer, scaledWidth);
             }
         }
         RenderSystem.disableBlend();
