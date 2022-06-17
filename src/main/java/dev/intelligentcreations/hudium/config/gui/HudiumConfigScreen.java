@@ -6,11 +6,14 @@ import dev.lambdaurora.spruceui.SpruceTexts;
 import dev.lambdaurora.spruceui.screen.SpruceScreen;
 import dev.lambdaurora.spruceui.widget.SpruceButtonWidget;
 import dev.lambdaurora.spruceui.widget.container.SpruceOptionListWidget;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 
+@Environment(EnvType.CLIENT)
 public class HudiumConfigScreen extends SpruceScreen {
     private final Screen parent;
     private SpruceOptionListWidget list;
@@ -27,8 +30,9 @@ public class HudiumConfigScreen extends SpruceScreen {
     @Override
     protected void init() {
         super.init();
-        this.list = ConfigScreenBase.get().buildOptionList(Position.of(0, 22), this.width, this.height - 35 - 22);
-        ConfigScreenBase.get().resetConsumer = btn -> this.init(this.client, this.client.getWindow().getScaledWidth(), this.client.getWindow().getScaledHeight());
+        this.list = HudiumClient.configScreenBase.buildOptionList(Position.of(0, 22), this.width, this.height - 35 - 22);
+        HudiumClient.configScreenBase.resetConsumer = btn ->
+                this.init(this.client, this.client.getWindow().getScaledWidth(), this.client.getWindow().getScaledHeight());
         this.addDrawableChild(this.list);
         this.addDrawableChild(new SpruceButtonWidget(Position.of(this, this.width / 2 - 155, this.height - 29), 150, 20, Text.translatable("config.hudium-config.save"),
                 btn -> {
@@ -36,7 +40,10 @@ public class HudiumConfigScreen extends SpruceScreen {
             this.init(this.client, this.client.getWindow().getScaledWidth(), this.client.getWindow().getScaledHeight());
         }));
         this.addDrawableChild(new SpruceButtonWidget(Position.of(this, this.width / 2 - 155 + 160, this.height - 29), 150, 20, SpruceTexts.GUI_DONE,
-                btn -> this.client.setScreen(this.parent)).asVanilla());
+                btn -> {
+            HudiumClient.CONFIG.save();
+            this.client.setScreen(this.parent);
+        }).asVanilla());
     }
 
     @Override

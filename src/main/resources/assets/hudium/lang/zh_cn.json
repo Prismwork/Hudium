@@ -20,5 +20,17 @@
   "configEntry.hudium-config.displayFluidInfo": "显示流体信息",
   "configEntry.hudium-config.displayEntityInfo": "显示实体信息",
   "configEntry.hudium-config.displayDurabilityInfo": "显示耐久信息",
-  "configEntry.hudium-config.displayCoordinatesAndDirection": "显示坐标和朝向"
+  "configEntry.hudium-config.displayCoordinatesAndDirection": "显示坐标和朝向",
+  "entryInfo.hudium-config.displayHealthValue": "指定是否显示生命数值。",
+  "entryInfo.hudium-config.displayHungerValue": "指定是否显示饱食度数值。",
+  "entryInfo.hudium-config.displaySaturationValue": "指定是否显示饱和度数值。",
+  "entryInfo.hudium-config.displayArmorValue": "指定是否显示盔甲值数值。",
+  "entryInfo.hudium-config.displayAirValue": "指定是否显示氧气数值。",
+  "entryInfo.hudium-config.displayInfoX": "指定摆放信息的X坐标。",
+  "entryInfo.hudium-config.displayInfoY": "指定摆放信息的Y坐标。",
+  "entryInfo.hudium-config.displayBlockInfo": "指定是否显示方块信息。",
+  "entryInfo.hudium-config.displayFluidInfo": "指定是否显示流体信息。",
+  "entryInfo.hudium-config.displayEntityInfo": "指定是否显示实体信息。",
+  "entryInfo.hudium-config.displayDurabilityInfo": "指定是否显示耐久提示。",
+  "entryInfo.hudium-config.displayCoordinatesAndDirection": "指定是否显示玩家坐标和朝向。"
 }

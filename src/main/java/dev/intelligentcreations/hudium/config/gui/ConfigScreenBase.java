@@ -8,10 +8,13 @@ import dev.lambdaurora.spruceui.option.SpruceSimpleActionOption;
 import dev.lambdaurora.spruceui.option.SpruceToggleBooleanOption;
 import dev.lambdaurora.spruceui.widget.SpruceButtonWidget;
 import dev.lambdaurora.spruceui.widget.container.SpruceOptionListWidget;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.text.Text;
 
 import java.util.function.Consumer;
 
+@Environment(EnvType.CLIENT)
 public class ConfigScreenBase {
     private final SpruceOption displayHealthValue;
     private final SpruceOption displayHungerValue;
@@ -26,7 +29,7 @@ public class ConfigScreenBase {
     private final SpruceOption displayInfoX;
     private final SpruceOption displayInfoY;
     private final SpruceOption reset;
-    public static ConfigScreenBase INSTANCE;
+    private static final ConfigScreenBase INSTANCE = new ConfigScreenBase();
 
     public Consumer<SpruceButtonWidget> resetConsumer;
 
@@ -70,7 +73,7 @@ public class ConfigScreenBase {
         this.displayCoordinatesAndDirection = new SpruceToggleBooleanOption("configEntry.hudium-config.displayCoordinatesAndDirection",
                 () -> HudiumClient.CONFIG.displayCoordinatesAndDirection,
                 newValue -> HudiumClient.CONFIG.displayCoordinatesAndDirection = newValue,
-                Text.translatable("entryInfo.hudium-config.displayDirectionInfo"));
+                Text.translatable("entryInfo.hudium-config.displayCoordinatesAndDirection"));
         this.displayInfoX = new SpruceIntegerInputOption("configEntry.hudium-config.displayInfoX",
                 () -> HudiumClient.CONFIG.displayInfoX,
                 newValue -> HudiumClient.CONFIG.displayInfoX = newValue,

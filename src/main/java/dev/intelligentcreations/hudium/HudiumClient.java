@@ -15,12 +15,12 @@ public class HudiumClient implements ClientModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger("Hudium");
 	public static final String MOD_ID = "hudium";
 	public static final HudiumConfig CONFIG = OmegaConfig.register(HudiumConfig.class);
+	public static final ConfigScreenBase configScreenBase = ConfigScreenBase.get();
 
 	@Override
 	public void onInitializeClient() {
-		ConfigScreenBase.INSTANCE = new ConfigScreenBase();
 		InfoPluginHandler.register(EntityHealthPlugin.class);
 		InfoPluginHandler.register(BlockBreakProgressPlugin.class);
-		LOGGER.info("Version " + FabricLoader.getInstance().getModContainer("hudium").get().getMetadata().getVersion() + " initialized with " + InfoPluginHandler.getPlugins().size() + " active info plugin(s).");
+		LOGGER.info("Version " + FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata().getVersion() + " initialized with " + InfoPluginHandler.getPlugins().size() + " active info plugin(s).");
 	}
 }

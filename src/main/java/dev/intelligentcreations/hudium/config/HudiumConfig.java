@@ -21,10 +21,10 @@ public class HudiumConfig implements Config {
     @Comment(value = "Specify whether the air value (oxygen in the water) will be displayed.")
     public boolean displayAirValue = true;
 
-    @Comment(value = "Specify the x value the info is going to be placed")
+    @Comment(value = "Specify the x coordinate the info is going to be placed")
     public int displayInfoX = 4;
 
-    @Comment(value = "Specify the y value the info is going to be placed")
+    @Comment(value = "Specify the y coordinate the info is going to be placed")
     public int displayInfoY = 4;
 
     @Comment(value = "Specify whether the block info will be displayed.")
