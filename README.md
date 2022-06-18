@@ -11,13 +11,13 @@ This mod adds tons of HUD tweaks including player stats, block/entity info, etc.
 Add this to your build.gradle:
 ```groovy
 repositories {
-    // [...]
+	// [...]
 	maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    // [...]
-    modImplementation "com.github.IntelligentCreations:Hudium:${project.hudium_version}"
+	// [...]
+	modImplementation "com.github.IntelligentCreations:Hudium:${project.hudium_version}"
 }
 ```
 
