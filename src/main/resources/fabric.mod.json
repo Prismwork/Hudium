@@ -19,7 +19,8 @@
     ],
     "hudium_info": [
       "dev.intelligentcreations.hudium.plugin.info.BlockBreakProgressPlugin",
-      "dev.intelligentcreations.hudium.plugin.info.EntityHealthPlugin"
+      "dev.intelligentcreations.hudium.plugin.info.EntityHealthPlugin",
+      "dev.intelligentcreations.hudium.plugin.info.BlockMiningLevelPlugin"
     ]
   },
   "mixins": [

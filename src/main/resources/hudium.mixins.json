@@ -4,12 +4,13 @@
   "package": "dev.intelligentcreations.hudium.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "SimpleRegistryAccessor"
   ],
   "client": [
     "ClientPlayerInteractionManagerAccessor",
+    "GameMenuScreenMixin",
     "InGameHudMixin",
-    "TitleScreenMixin",
-    "GameMenuScreenMixin"
+    "TitleScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

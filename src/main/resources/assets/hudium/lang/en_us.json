@@ -9,6 +9,23 @@
   "info.hudium.direction.west": "West",
   "info.hudium.direction.south": "South",
 
+  "info.hudium.mineable": "Mineable: ",
+
+  "info.hudium.suitableTool": "Suitable Tool: ",
+  "info.hudium.suitableTool.minecraft.mineable.axe": "Axe",
+  "info.hudium.suitableTool.minecraft.mineable.hoe": "Hoe",
+  "info.hudium.suitableTool.minecraft.mineable.pickaxe": "Pickaxe",
+  "info.hudium.suitableTool.fabric.mineable.shears": "Shears",
+  "info.hudium.suitableTool.minecraft.mineable.shovel": "Shovel",
+  "info.hudium.suitableTool.fabric.mineable.sword": "Sword",
+
+  "info.hudium.miningLevel": "Mining Level: ",
+  "info.hudium.miningLevel.level": "%s (%s)",
+  "info.hudium.miningLevel.level.1": "§7Stone",
+  "info.hudium.miningLevel.level.2": "§fIron",
+  "info.hudium.miningLevel.level.3": "§bDiamond",
+  "info.hudium.miningLevel.level.4": "§4Netherite",
+
   "configEntry.hudium-config.displayHealthValue": "Display Health Value",
   "entryInfo.hudium-config.displayHealthValue": "Specify whether the health value will be displayed.",
   "configEntry.hudium-config.displayHungerValue": "Display Hunger Value",
