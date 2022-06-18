@@ -3,8 +3,6 @@ package dev.intelligentcreations.hudium;
 import dev.intelligentcreations.hudium.api.info.plugin.InfoPluginHandler;
 import dev.intelligentcreations.hudium.config.HudiumConfig;
 import dev.intelligentcreations.hudium.config.gui.ConfigScreenBase;
-import dev.intelligentcreations.hudium.plugin.info.BlockBreakProgressPlugin;
-import dev.intelligentcreations.hudium.plugin.info.EntityHealthPlugin;
 import draylar.omegaconfig.OmegaConfig;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
@@ -19,8 +17,7 @@ public class HudiumClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		InfoPluginHandler.register(EntityHealthPlugin.class);
-		InfoPluginHandler.register(BlockBreakProgressPlugin.class);
+		InfoPluginHandler.loadPlugins();
 		LOGGER.info("Version " + FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata().getVersion() + " initialized with " + InfoPluginHandler.getPlugins().size() + " active info plugin(s).");
 	}
 }
