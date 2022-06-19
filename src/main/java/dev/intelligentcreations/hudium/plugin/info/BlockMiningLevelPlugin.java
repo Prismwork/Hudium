@@ -14,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -41,7 +40,7 @@ public class BlockMiningLevelPlugin implements BlockInfoPlugin {
                 ToolHandler handler = entry.getLeft();
                 int level = entry.getRight();
                 ItemStack stack = camera.getMainHandStack();
-                boolean mineable = !state.isToolRequired() || (!stack.isEmpty() || ToolHandler.isEffective(stack, state));
+                boolean mineable = !state.isToolRequired() || (!stack.isEmpty() && ToolHandler.isEffective(stack, state));
                 textRenderer.drawWithShadow(matrices, Text.translatable("info.hudium.mineable").formatted(Formatting.DARK_GRAY).append(Text.literal(mineable ? "\u2714" : "\u2718").formatted(mineable ? Formatting.GREEN : Formatting.RED)), renderX, renderY, 5592405);
                 textRenderer.drawWithShadow(matrices, Text.translatable("info.hudium.suitableTool").formatted(Formatting.DARK_GRAY).append(handler.getToolDisplay()), renderX, renderY + 9, 5592405);
                 requiresLevel = level > 0;

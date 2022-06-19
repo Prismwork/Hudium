@@ -11,6 +11,6 @@ import java.util.Map;
 @Mixin(SimpleRegistry.class)
 public interface SimpleRegistryAccessor<T> {
     @Nullable
-    @Accessor("unfrozenValueToEntry")
+    @Accessor(value = "unfrozenValueToEntry")
     Map<T, RegistryEntry.Reference<T>> getUnfrozenValueToEntry();
 }

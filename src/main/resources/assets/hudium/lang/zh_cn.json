@@ -38,6 +38,7 @@
   "configEntry.hudium-config.displayEntityInfo": "显示实体信息",
   "configEntry.hudium-config.displayDurabilityInfo": "显示耐久信息",
   "configEntry.hudium-config.displayCoordinatesAndDirection": "显示坐标和朝向",
+  "configEntry.hudium-config.floatAndDoubleShowMode": "单/双精度浮点数显示模式",
   "entryInfo.hudium-config.displayHealthValue": "指定是否显示生命数值。",
   "entryInfo.hudium-config.displayHungerValue": "指定是否显示饱食度数值。",
   "entryInfo.hudium-config.displaySaturationValue": "指定是否显示饱和度数值。",
@@ -49,5 +50,6 @@
   "entryInfo.hudium-config.displayFluidInfo": "指定是否显示流体信息。",
   "entryInfo.hudium-config.displayEntityInfo": "指定是否显示实体信息。",
   "entryInfo.hudium-config.displayDurabilityInfo": "指定是否显示耐久提示。",
-  "entryInfo.hudium-config.displayCoordinatesAndDirection": "指定是否显示玩家坐标和朝向。"
+  "entryInfo.hudium-config.displayCoordinatesAndDirection": "指定是否显示玩家坐标和朝向。",
+  "entryInfo.hudium-config.floatAndDoubleShowMode": "指定单/双精度浮点数的限显示模式。只能为ACCURATE、SEMI_ACCURATE或INTEGER。（现在仅用于实体生命显示）"
 }

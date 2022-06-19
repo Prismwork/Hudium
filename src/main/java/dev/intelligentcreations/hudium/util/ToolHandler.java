@@ -28,7 +28,7 @@ public final class ToolHandler {
     public final TagKey<Block> tag;
     public final Item defaultTool;
     private final Supplier<Integer> maximumLevel = Suppliers.memoize(() -> {
-        int highest = 3;
+        int highest = 4;
         for (Item item : Registry.ITEM) {
             if (item instanceof ToolItem toolItem) {
                 int miningLevel = toolItem.getMaterial().getMiningLevel();
@@ -86,7 +86,7 @@ public final class ToolHandler {
         return stack.isSuitableFor(state) || (!state.isToolRequired() && stack.getMiningSpeedMultiplier(state) > 1.0F);
     }
 
-    public static void registerTool(TagKey<Block> tag, Item item) {
+    private static void registerTool(TagKey<Block> tag, Item item) {
         ToolHandler.TOOL_HANDLERS.add(new ToolHandler(new AbstractMap.SimpleImmutableEntry<>(tag, item)));
         if (Registry.ITEM.getKey(item).isEmpty()) {
             ((SimpleRegistryAccessor<Item>) Registry.ITEM).getUnfrozenValueToEntry().remove(item);

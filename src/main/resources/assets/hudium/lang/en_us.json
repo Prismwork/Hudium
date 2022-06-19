@@ -49,5 +49,7 @@
   "configEntry.hudium-config.displayDurabilityInfo": "Display Durability Info",
   "entryInfo.hudium-config.displayDurabilityInfo": "Specify whether the durability info will be displayed.",
   "configEntry.hudium-config.displayCoordinatesAndDirection": "Display Coordinates and Direction",
-  "entryInfo.hudium-config.displayCoordinatesAndDirection": "Specify whether the player coordinates and direction will be displayed."
+  "entryInfo.hudium-config.displayCoordinatesAndDirection": "Specify whether the player coordinates and direction will be displayed.",
+  "configEntry.hudium-config.floatAndDoubleShowMode": "Float And Double Show Mode",
+  "entryInfo.hudium-config.floatAndDoubleShowMode": "Specify the show mode of float values and double values. Can only be ACCURATE, SEMI_ACCURATE or INTEGER. (For now only used in entity health)"
 }

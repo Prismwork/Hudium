@@ -1,11 +1,9 @@
 package dev.intelligentcreations.hudium.config.gui;
 
 import dev.intelligentcreations.hudium.HudiumClient;
+import dev.intelligentcreations.hudium.config.misc.FloatAndDoubleShowMode;
 import dev.lambdaurora.spruceui.Position;
-import dev.lambdaurora.spruceui.option.SpruceIntegerInputOption;
-import dev.lambdaurora.spruceui.option.SpruceOption;
-import dev.lambdaurora.spruceui.option.SpruceSimpleActionOption;
-import dev.lambdaurora.spruceui.option.SpruceToggleBooleanOption;
+import dev.lambdaurora.spruceui.option.*;
 import dev.lambdaurora.spruceui.widget.SpruceButtonWidget;
 import dev.lambdaurora.spruceui.widget.container.SpruceOptionListWidget;
 import net.fabricmc.api.EnvType;
@@ -28,6 +26,7 @@ public class ConfigScreenBase {
     private final SpruceOption displayCoordinatesAndDirection;
     private final SpruceOption displayInfoX;
     private final SpruceOption displayInfoY;
+    private final SpruceOption floatAndDoubleShowMode;
     private final SpruceOption reset;
     private static final ConfigScreenBase INSTANCE = new ConfigScreenBase();
 
@@ -82,6 +81,10 @@ public class ConfigScreenBase {
                 () -> HudiumClient.CONFIG.displayInfoY,
                 newValue -> HudiumClient.CONFIG.displayInfoY = newValue,
                 Text.translatable("entryInfo.hudium-config.displayInfoY"));
+        this.floatAndDoubleShowMode = new SpruceCyclingOption("configEntry.hudium-config.floatAndDoubleShowMode",
+                amount -> HudiumClient.CONFIG.floatAndDoubleShowMode = HudiumClient.CONFIG.floatAndDoubleShowMode.next(),
+                option -> option.getDisplayText(Text.literal(HudiumClient.CONFIG.floatAndDoubleShowMode.asString())),
+                Text.translatable("entryInfo.hudium-config.floatAndDoubleShowMode"));
         this.reset = SpruceSimpleActionOption.reset(btn -> {
             HudiumClient.CONFIG.displayHealthValue = true;
             HudiumClient.CONFIG.displayHungerValue = true;
@@ -95,6 +98,7 @@ public class ConfigScreenBase {
             HudiumClient.CONFIG.displayCoordinatesAndDirection = true;
             HudiumClient.CONFIG.displayInfoX = 4;
             HudiumClient.CONFIG.displayInfoY = 4;
+            HudiumClient.CONFIG.floatAndDoubleShowMode = FloatAndDoubleShowMode.ACCURATE;
             if (this.resetConsumer != null) this.resetConsumer.accept(btn);
         });
     }
@@ -116,6 +120,7 @@ public class ConfigScreenBase {
         list.addSingleOptionEntry(displayDurabilityInfo);
         list.addSingleOptionEntry(displayCoordinatesAndDirection);
         list.addOptionEntry(displayInfoX, displayInfoY);
+        list.addSingleOptionEntry(floatAndDoubleShowMode);
         list.addSingleOptionEntry(reset);
         return list;
     }

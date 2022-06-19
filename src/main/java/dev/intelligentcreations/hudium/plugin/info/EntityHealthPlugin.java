@@ -1,5 +1,6 @@
 package dev.intelligentcreations.hudium.plugin.info;
 
+import dev.intelligentcreations.hudium.HudiumClient;
 import dev.intelligentcreations.hudium.api.info.plugin.EntityInfoPlugin;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -12,7 +13,11 @@ public class EntityHealthPlugin implements EntityInfoPlugin {
     @Override
     public void addInfo(MatrixStack matrices, MinecraftClient client, PlayerEntity camera, float tickDelta, TextRenderer textRenderer, Entity entity, int renderX, int renderY) {
         if (entity instanceof LivingEntity livingEntity) {
-            textRenderer.drawWithShadow(matrices, "\u2665 " + livingEntity.getHealth() + "/" + livingEntity.getMaxHealth(), renderX, renderY, 16733525);
+            switch (HudiumClient.CONFIG.floatAndDoubleShowMode) {
+                case ACCURATE -> textRenderer.drawWithShadow(matrices, "\u2665 " + livingEntity.getHealth() + "/" + livingEntity.getMaxHealth(), renderX, renderY, 16733525);
+                case SEMI_ACCURATE -> textRenderer.drawWithShadow(matrices, "\u2665 " + Math.round(livingEntity.getHealth() * 10) / 10 + "/" + Math.round(livingEntity.getMaxHealth() * 10) / 10, renderX, renderY, 16733525);
+                case INTEGER -> textRenderer.drawWithShadow(matrices, "\u2665 " + Math.round(livingEntity.getHealth()) + "/" + Math.round(livingEntity.getMaxHealth()), renderX, renderY, 16733525);
+            }
         }
     }
 }
