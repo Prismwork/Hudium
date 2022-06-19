@@ -4,6 +4,8 @@
 
 *Roughly enough HUD tweaks*
 
+[![](https://jitpack.io/v/IntelligentCreations/Hudium.svg)](https://jitpack.io/#IntelligentCreations/Hudium)
+
 This mod adds tons of HUD tweaks including player stats, block/entity info, etc. Everything can be toggled via the config.
 
 ### Setting up development environment
