@@ -1,6 +1,7 @@
 package dev.intelligentcreations.hudium.config;
 
 import dev.intelligentcreations.hudium.HudiumClient;
+import dev.intelligentcreations.hudium.config.misc.FloatAndDoubleShowMode;
 import draylar.omegaconfig.api.Comment;
 import draylar.omegaconfig.api.Config;
 import org.jetbrains.annotations.Nullable;
@@ -41,6 +42,9 @@ public class HudiumConfig implements Config {
 
     @Comment(value = "Specify whether the player coordinates and direction will be displayed.")
     public boolean displayCoordinatesAndDirection = true;
+
+    @Comment(value = "Specify the show mode of float values and double values. Can only be ACCURATE, SEMI_ACCURATE or INTEGER. (For now only used in entity health)")
+    public FloatAndDoubleShowMode floatAndDoubleShowMode = FloatAndDoubleShowMode.ACCURATE;
 
     @Override
     public String getName() {

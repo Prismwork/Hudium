@@ -8,6 +8,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.FluidBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.resource.language.I18n;
@@ -71,7 +72,7 @@ public class PlayerHud {
             ItemStack stack = state.getBlock().getPickStack(camera.getWorld(), bhr.getBlockPos(), state);
             if (!state.isOf(Blocks.AIR) && !state.isOf(Blocks.CAVE_AIR) && !state.isOf(Blocks.VOID_AIR)) {
                 if (HudiumClient.CONFIG.displayBlockInfo) {
-                    if (stack != null) {
+                    if (stack != null && !(state.getBlock() instanceof FluidBlock)) {
                         client.getItemRenderer().renderGuiItemIcon(stack, i, j);
                         i += 17;
                     }

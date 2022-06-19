@@ -9,6 +9,23 @@
   "info.hudium.direction.west": "西",
   "info.hudium.direction.south": "南",
 
+  "info.hudium.mineable": "能否挖掘: ",
+
+  "info.hudium.suitableTool": "合适工具: ",
+  "info.hudium.suitableTool.minecraft.mineable.axe": "斧",
+  "info.hudium.suitableTool.minecraft.mineable.hoe": "锄",
+  "info.hudium.suitableTool.minecraft.mineable.pickaxe": "镐",
+  "info.hudium.suitableTool.fabric.mineable.shears": "剪刀",
+  "info.hudium.suitableTool.minecraft.mineable.shovel": "铲",
+  "info.hudium.suitableTool.fabric.mineable.sword": "剑",
+
+  "info.hudium.miningLevel": "挖掘等级: ",
+  "info.hudium.miningLevel.level": "%s (%s)",
+  "info.hudium.miningLevel.level.1": "§7石",
+  "info.hudium.miningLevel.level.2": "§f铁",
+  "info.hudium.miningLevel.level.3": "§b钻石",
+  "info.hudium.miningLevel.level.4": "§4下界合金",
+
   "configEntry.hudium-config.displayHealthValue": "显示生命数值",
   "configEntry.hudium-config.displayHungerValue": "显示饱食度数值",
   "configEntry.hudium-config.displaySaturationValue": "显示饱和度数值",
@@ -21,6 +38,7 @@
   "configEntry.hudium-config.displayEntityInfo": "显示实体信息",
   "configEntry.hudium-config.displayDurabilityInfo": "显示耐久信息",
   "configEntry.hudium-config.displayCoordinatesAndDirection": "显示坐标和朝向",
+  "configEntry.hudium-config.floatAndDoubleShowMode": "单/双精度浮点数显示模式",
   "entryInfo.hudium-config.displayHealthValue": "指定是否显示生命数值。",
   "entryInfo.hudium-config.displayHungerValue": "指定是否显示饱食度数值。",
   "entryInfo.hudium-config.displaySaturationValue": "指定是否显示饱和度数值。",
@@ -32,5 +50,6 @@
   "entryInfo.hudium-config.displayFluidInfo": "指定是否显示流体信息。",
   "entryInfo.hudium-config.displayEntityInfo": "指定是否显示实体信息。",
   "entryInfo.hudium-config.displayDurabilityInfo": "指定是否显示耐久提示。",
-  "entryInfo.hudium-config.displayCoordinatesAndDirection": "指定是否显示玩家坐标和朝向。"
+  "entryInfo.hudium-config.displayCoordinatesAndDirection": "指定是否显示玩家坐标和朝向。",
+  "entryInfo.hudium-config.floatAndDoubleShowMode": "指定单/双精度浮点数的限显示模式。只能为ACCURATE、SEMI_ACCURATE或INTEGER。（现在仅用于实体生命显示）"
 }

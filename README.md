@@ -23,7 +23,7 @@ dependencies {
 
 And in your gradle.properties:
 ```properties
-hudium_version = 1.3.0
+hudium_version = 1.3.1
 ```
 
 ### Developing with Hudium
