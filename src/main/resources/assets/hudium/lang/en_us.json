@@ -1,6 +1,5 @@
 {
   "config.hudium.hudium-config": "Hudium Config",
 
-  "info.hudium.breakProgress": "Breaking Progress: ",
-  "info.hudium.storedEnergy": "Energy Stored: "
+  "info.hudium.breakProgress": "Breaking Progress: "
 }

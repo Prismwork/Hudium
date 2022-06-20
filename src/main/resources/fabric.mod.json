@@ -16,6 +16,10 @@
   "entrypoints": {
     "client": [
       "dev.intelligentcreations.hudium.HudiumClient"
+    ],
+    "hudium_info": [
+      "dev.intelligentcreations.hudium.plugin.info.BlockBreakProgressPlugin",
+      "dev.intelligentcreations.hudium.plugin.info.EntityHealthPlugin"
     ]
   },
   "mixins": [

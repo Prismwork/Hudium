@@ -2,9 +2,6 @@ package dev.intelligentcreations.hudium;
 
 import dev.intelligentcreations.hudium.api.info.plugin.InfoPluginHandler;
 import dev.intelligentcreations.hudium.config.HudiumConfig;
-import dev.intelligentcreations.hudium.plugin.info.BlockBreakProgressPlugin;
-import dev.intelligentcreations.hudium.plugin.info.BlockEnergyInfo;
-import dev.intelligentcreations.hudium.plugin.info.EntityHealthPlugin;
 import draylar.omegaconfig.OmegaConfig;
 import draylar.omegaconfiggui.OmegaConfigGui;
 import net.fabricmc.api.ClientModInitializer;
@@ -20,9 +17,7 @@ public class HudiumClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		OmegaConfigGui.registerConfigScreen(HudiumClient.CONFIG);
-		InfoPluginHandler.register(EntityHealthPlugin.class);
-		InfoPluginHandler.register(BlockBreakProgressPlugin.class);
-		if (FabricLoader.getInstance().isModLoaded("team_reborn_energy")) InfoPluginHandler.register(BlockEnergyInfo.class);
+		InfoPluginHandler.loadPlugins();
 		LOGGER.info("Version " + FabricLoader.getInstance().getModContainer("hudium").get().getMetadata().getVersion() + " initialized with " + InfoPluginHandler.getPlugins().size() + " active info plugin(s).");
 	}
 }

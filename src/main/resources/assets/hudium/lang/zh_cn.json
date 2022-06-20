@@ -1,6 +1,5 @@
 {
   "config.hudium.hudium-config": "Hudium 配置",
 
-  "info.hudium.breakProgress": "破坏进度: ",
-  "info.hudium.storedEnergy": "能量存储: "
+  "info.hudium.breakProgress": "破坏进度: "
 }
