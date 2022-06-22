@@ -5,6 +5,7 @@ import dev.intelligentcreations.hudium.config.misc.FloatAndDoubleShowMode;
 import dev.lambdaurora.spruceui.Position;
 import dev.lambdaurora.spruceui.option.*;
 import dev.lambdaurora.spruceui.widget.SpruceButtonWidget;
+import dev.lambdaurora.spruceui.widget.SpruceLabelWidget;
 import dev.lambdaurora.spruceui.widget.container.SpruceOptionListWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -24,6 +25,11 @@ public class ConfigScreenBase {
     private final SpruceOption displayEntityInfo;
     private final SpruceOption displayDurabilityInfo;
     private final SpruceOption displayCoordinatesAndDirection;
+    private final SpruceOption displayFrameRate;
+    private final SpruceOption displayNetworkLatency;
+    private final SpruceOption displayBiomeInfo;
+    private final SpruceOption displayGameTime;
+    private final SpruceOption displayTextColor;
     private final SpruceOption displayInfoX;
     private final SpruceOption displayInfoY;
     private final SpruceOption floatAndDoubleShowMode;
@@ -73,6 +79,27 @@ public class ConfigScreenBase {
                 () -> HudiumClient.CONFIG.displayCoordinatesAndDirection,
                 newValue -> HudiumClient.CONFIG.displayCoordinatesAndDirection = newValue,
                 Text.translatable("entryInfo.hudium-config.displayCoordinatesAndDirection"));
+        this.displayFrameRate = new SpruceToggleBooleanOption("configEntry.hudium-config.displayFrameRate",
+                () -> HudiumClient.CONFIG.displayFrameRate,
+                newValue -> HudiumClient.CONFIG.displayFrameRate = newValue,
+                Text.translatable("entryInfo.hudium-config.displayFrameRate"));
+        this.displayNetworkLatency = new SpruceToggleBooleanOption("configEntry.hudium-config.displayNetworkLatency",
+                () -> HudiumClient.CONFIG.displayNetworkLatency,
+                newValue -> HudiumClient.CONFIG.displayNetworkLatency = newValue,
+                Text.translatable("entryInfo.hudium-config.displayFrameRate"));
+        this.displayBiomeInfo = new SpruceToggleBooleanOption("configEntry.hudium-config.displayBiomeInfo",
+                () -> HudiumClient.CONFIG.displayBiomeInfo,
+                newValue -> HudiumClient.CONFIG.displayBiomeInfo = newValue,
+                Text.translatable("entryInfo.hudium-config.displayBiomeInfo"));
+        this.displayGameTime = new SpruceToggleBooleanOption("configEntry.hudium-config.displayGameTime",
+                () -> HudiumClient.CONFIG.displayGameTime,
+                newValue -> HudiumClient.CONFIG.displayGameTime = newValue,
+                Text.translatable("entryInfo.hudium-config.displayGameTime"));
+        this.displayTextColor = new SpruceStringOption("configEntry.hudium-config.displayTextColor",
+                () -> HudiumClient.CONFIG.displayTextColor,
+                newValue -> HudiumClient.CONFIG.displayTextColor = newValue,
+                null,
+                Text.translatable("entryInfo.hudium-config.displayTextColor"));
         this.displayInfoX = new SpruceIntegerInputOption("configEntry.hudium-config.displayInfoX",
                 () -> HudiumClient.CONFIG.displayInfoX,
                 newValue -> HudiumClient.CONFIG.displayInfoX = newValue,
@@ -96,8 +123,13 @@ public class ConfigScreenBase {
             HudiumClient.CONFIG.displayEntityInfo = true;
             HudiumClient.CONFIG.displayDurabilityInfo = true;
             HudiumClient.CONFIG.displayCoordinatesAndDirection = true;
+            HudiumClient.CONFIG.displayFrameRate = true;
+            HudiumClient.CONFIG.displayNetworkLatency = true;
+            HudiumClient.CONFIG.displayBiomeInfo = true;
+            HudiumClient.CONFIG.displayGameTime = true;
+            HudiumClient.CONFIG.displayTextColor = "FFFFFF";
             HudiumClient.CONFIG.displayInfoX = 4;
-            HudiumClient.CONFIG.displayInfoY = 4;
+            HudiumClient.CONFIG.displayInfoY = 48;
             HudiumClient.CONFIG.floatAndDoubleShowMode = FloatAndDoubleShowMode.ACCURATE;
             if (this.resetConsumer != null) this.resetConsumer.accept(btn);
         });
@@ -119,6 +151,11 @@ public class ConfigScreenBase {
         list.addSingleOptionEntry(displayEntityInfo);
         list.addSingleOptionEntry(displayDurabilityInfo);
         list.addSingleOptionEntry(displayCoordinatesAndDirection);
+        list.addSingleOptionEntry(displayFrameRate);
+        list.addSingleOptionEntry(displayNetworkLatency);
+        list.addSingleOptionEntry(displayBiomeInfo);
+        list.addSingleOptionEntry(displayGameTime);
+        list.addSingleOptionEntry(displayTextColor);
         list.addOptionEntry(displayInfoX, displayInfoY);
         list.addSingleOptionEntry(floatAndDoubleShowMode);
         list.addSingleOptionEntry(reset);

@@ -37,6 +37,7 @@ public abstract class InGameHudMixin {
                 }
                 PlayerHud.renderDurabilityInfo(matrices, client, player, textRenderer, scaledHeight);
                 PlayerHud.renderCoordinatesAndDirection(matrices, player, textRenderer, scaledWidth);
+                PlayerHud.renderExtraInfo(matrices, client, player, textRenderer, scaledWidth, scaledHeight);
             }
         }
         RenderSystem.disableBlend();

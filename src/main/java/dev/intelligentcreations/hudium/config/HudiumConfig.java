@@ -22,11 +22,14 @@ public class HudiumConfig implements Config {
     @Comment(value = "Specify whether the air value (oxygen in the water) will be displayed.")
     public boolean displayAirValue = true;
 
-    @Comment(value = "Specify the x coordinate the info is going to be placed")
+    @Comment(value = "Specify the hex value of the info text colour.")
+    public String displayTextColor = "FFFFFF";
+
+    @Comment(value = "Specify the x coordinate the info is going to be placed.")
     public int displayInfoX = 4;
 
-    @Comment(value = "Specify the y coordinate the info is going to be placed")
-    public int displayInfoY = 4;
+    @Comment(value = "Specify the y coordinate the info is going to be placed.")
+    public int displayInfoY = 48;
 
     @Comment(value = "Specify whether the block info will be displayed.")
     public boolean displayBlockInfo = true;
@@ -42,6 +45,18 @@ public class HudiumConfig implements Config {
 
     @Comment(value = "Specify whether the player coordinates and direction will be displayed.")
     public boolean displayCoordinatesAndDirection = true;
+
+    @Comment(value = "Specify whether FPS will be displayed.")
+    public boolean displayFrameRate = true;
+
+    @Comment(value = "Specify whether ping will be displayed.")
+    public boolean displayNetworkLatency = true;
+
+    @Comment(value = "Specify whether the biome info will be displayed.")
+    public boolean displayBiomeInfo = true;
+
+    @Comment(value = "Specify whether the in-game time will be displayed.")
+    public boolean displayGameTime = true;
 
     @Comment(value = "Specify the show mode of float values and double values. Can only be ACCURATE, SEMI_ACCURATE or INTEGER. (For now only used in entity health)")
     public FloatAndDoubleShowMode floatAndDoubleShowMode = FloatAndDoubleShowMode.ACCURATE;
