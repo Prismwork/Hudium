@@ -5,7 +5,6 @@ import dev.intelligentcreations.hudium.config.misc.FloatAndDoubleShowMode;
 import dev.lambdaurora.spruceui.Position;
 import dev.lambdaurora.spruceui.option.*;
 import dev.lambdaurora.spruceui.widget.SpruceButtonWidget;
-import dev.lambdaurora.spruceui.widget.SpruceLabelWidget;
 import dev.lambdaurora.spruceui.widget.container.SpruceOptionListWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

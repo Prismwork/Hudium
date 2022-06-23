@@ -200,9 +200,9 @@ public class PlayerHud {
         Vec3d pos = player.getPos();
         Direction direction = player.getHorizontalFacing();
         if (HudiumClient.CONFIG.displayCoordinatesAndDirection) {
-            double x = ((double) Math.round(pos.x * 10)) / 10;
-            double y = ((double) Math.round(pos.y * 10)) / 10;
-            double z = ((double) Math.round(pos.z * 10)) / 10;
+            double x = ((double)Math.round(pos.x * 10)) / 10;
+            double y = ((double)Math.round(pos.y * 10)) / 10;
+            double z = ((double)Math.round(pos.z * 10)) / 10;
             String posString = "( " + x + " , " + y + " , " + z + " )";
             int posStringWidth = textRenderer.getWidth(posString);
             String directionString;
@@ -215,19 +215,19 @@ public class PlayerHud {
             }
             String directionStringTranslated = "-= " + I18n.translate(directionString) + " =-";
             int directionStringWidth = textRenderer.getWidth(directionStringTranslated);
-            textRenderer.drawWithShadow(matrices, posString, ((float) scaledWidth / 2) - ((float) posStringWidth / 2), 4, convertColor(HudiumClient.CONFIG.displayTextColor));
-            textRenderer.drawWithShadow(matrices, directionStringTranslated, ((float) scaledWidth / 2) - ((float) directionStringWidth / 2), 13, convertColor(HudiumClient.CONFIG.displayTextColor));
+            textRenderer.drawWithShadow(matrices, posString, ((float)scaledWidth / 2) - ((float)posStringWidth / 2), 4, convertColor(HudiumClient.CONFIG.displayTextColor));
+            textRenderer.drawWithShadow(matrices, directionStringTranslated, ((float)scaledWidth / 2) - ((float)directionStringWidth / 2), 13, convertColor(HudiumClient.CONFIG.displayTextColor));
         }
     }
 
     //Extra Info
-    public static void renderExtraInfo(MatrixStack matrices, MinecraftClient client, PlayerEntity player, TextRenderer textRenderer, int scaledWidth, int scaledHeight) {
+    public static void renderExtraInfo(MatrixStack matrices, MinecraftClient client, PlayerEntity player, TextRenderer textRenderer) {
         List<String> extraInfo = new ArrayList<>();
 
         //FrameRate
         if (player != null) {
             int frameRate = ((ClientFrameRateAccessor) MinecraftClient.getInstance()).getClientFrameRate();
-            if (HudiumClient.CONFIG.displayFrameRate) extraInfo.add(String.valueOf(frameRate) + " fps");
+            if (HudiumClient.CONFIG.displayFrameRate) extraInfo.add(frameRate + " fps");
         }
 
         //Ping Info
@@ -235,7 +235,7 @@ public class PlayerHud {
             PlayerListEntry playerInfo = MinecraftClient.getInstance().getNetworkHandler().getPlayerListEntry(MinecraftClient.getInstance().player.getUuid());
             if (playerInfo != null) {
                 int networkLatency = playerInfo.getLatency();
-                if (HudiumClient.CONFIG.displayNetworkLatency) extraInfo.add("Ping: " + String.valueOf(networkLatency) + " ms");
+                if (HudiumClient.CONFIG.displayNetworkLatency) extraInfo.add("Ping: " + networkLatency + " ms");
             }
         }
 
