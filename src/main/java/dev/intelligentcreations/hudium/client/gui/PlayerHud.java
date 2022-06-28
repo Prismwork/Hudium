@@ -3,6 +3,7 @@ package dev.intelligentcreations.hudium.client.gui;
 import dev.intelligentcreations.hudium.HudiumClient;
 import dev.intelligentcreations.hudium.api.info.plugin.*;
 import dev.intelligentcreations.hudium.mixin.ClientFrameRateAccessor;
+import dev.intelligentcreations.hudium.mixin.ClientPlayerInteractionManagerAccessor;
 import dev.intelligentcreations.hudium.util.RaycastUtil;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -27,6 +28,7 @@ import net.minecraft.util.hit.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
+import net.minecraft.world.GameMode;
 import net.minecraft.world.biome.Biome;
 
 import java.awt.*;
@@ -196,7 +198,7 @@ public class PlayerHud {
     }
 
     //Coordinates and Direction
-    public static void renderCoordinatesAndDirection(MatrixStack matrices, PlayerEntity player, TextRenderer textRenderer, int scaledWidth, int renderHeight) {
+    public static void renderCoordinatesAndDirection(MatrixStack matrices, MinecraftClient client, PlayerEntity player, TextRenderer textRenderer, int scaledWidth, int scaledHeight, boolean bossBarEnabled) {
         Vec3d pos = player.getPos();
         Direction direction = player.getHorizontalFacing();
         if (HudiumClient.CONFIG.displayCoordinatesAndDirection) {
@@ -213,10 +215,25 @@ public class PlayerHud {
                 case WEST -> directionString = "info.hudium.direction.west";
                 case SOUTH -> directionString = "info.hudium.direction.south";
             }
+            int posY = 4;
+            int dirY = posY + 9;
+            if (!bossBarEnabled) {
+                GameMode gameMode = ((ClientPlayerInteractionManagerAccessor) client.interactionManager).getCurrentGameMode();
+                int offsetY;
+                switch (gameMode) {
+                    default -> offsetY = 48;
+                    case SURVIVAL -> offsetY = 48;
+                    case ADVENTURE -> offsetY = 48;
+                    case CREATIVE -> offsetY = 31;
+                    case SPECTATOR -> offsetY = 12;
+                }
+                posY = scaledHeight - offsetY;
+                dirY = posY - 9;
+            }
             String directionStringTranslated = "-= " + I18n.translate(directionString) + " =-";
             int directionStringWidth = textRenderer.getWidth(directionStringTranslated);
-            textRenderer.drawWithShadow(matrices, posString, ((float)scaledWidth / 2) - ((float)posStringWidth / 2), renderHeight, convertColor(HudiumClient.CONFIG.displayTextColor));
-            textRenderer.drawWithShadow(matrices, directionStringTranslated, ((float)scaledWidth / 2) - ((float)directionStringWidth / 2), renderHeight + 9, convertColor(HudiumClient.CONFIG.displayTextColor));
+            textRenderer.drawWithShadow(matrices, posString, ((float)scaledWidth / 2) - ((float)posStringWidth / 2), posY, convertColor(HudiumClient.CONFIG.displayTextColor));
+            textRenderer.drawWithShadow(matrices, directionStringTranslated, ((float)scaledWidth / 2) - ((float)directionStringWidth / 2), dirY, convertColor(HudiumClient.CONFIG.displayTextColor));
         }
     }
 
