@@ -70,4 +70,9 @@ public class HudiumConfig implements Config {
     public @Nullable String getModid() {
         return HudiumClient.MOD_ID;
     }
+
+    @Override
+    public String getExtension() {
+        return "json5";
+    }
 }

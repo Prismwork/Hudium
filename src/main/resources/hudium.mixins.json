@@ -7,6 +7,7 @@
     "SimpleRegistryAccessor"
   ],
   "client": [
+    "BossBarHudAccessor",
     "ClientFrameRateAccessor",
     "ClientPlayerInteractionManagerAccessor",
     "GameMenuScreenMixin",

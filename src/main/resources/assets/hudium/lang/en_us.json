@@ -2,6 +2,9 @@
   "config.hudium.hudium-config": "Hudium Config",
   "config.hudium-config.save": "Save",
 
+  "info.hudium.ping": "Ping: ",
+  "info.hudium.biome": "Biome: ",
+
   "info.hudium.breakProgress": "Breaking Progress: ",
 
   "info.hudium.direction.north": "North",

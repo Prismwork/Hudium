@@ -29,7 +29,7 @@ public class BlockMiningLevelPlugin implements BlockInfoPlugin {
 
     @Override
     public void addInfo(MatrixStack matrices, MinecraftClient client, PlayerEntity camera, float tickDelta, TextRenderer textRenderer, BlockState state, BlockPos pos, int renderX, int renderY) {
-        absolutelyNotMineable = state.isAir() || state.getHardness(camera.getWorld(), pos) == -1 || state.getBlock() instanceof FluidBlock || state.getBlock() == Blocks.REINFORCED_DEEPSLATE;
+        absolutelyNotMineable = state.isAir() || state.getHardness(camera.getWorld(), pos) == -1 || state.getBlock() instanceof FluidBlock || state.getBlock() == Blocks.REINFORCED_DEEPSLATE || state.getBlock() == Blocks.POWDER_SNOW;
         Optional<Pair<ToolHandler, Integer>> optionalEffectiveTool = ToolHandler.TOOL_HANDLERS.stream()
                 .map(handler -> (Pair<ToolHandler, Integer>) new MutablePair<>(handler, handler.supportsBlock(state, camera)))
                 .min(Comparator.comparing(Pair::getRight, Comparator.nullsLast(Comparator.naturalOrder())));

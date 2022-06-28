@@ -39,7 +39,7 @@ public class PlayerHud {
     //Misc Info
     public static void renderMiscValues(MatrixStack matrices, PlayerEntity player, TextRenderer textRenderer, int scaledWidth, int scaledHeight) {
         if (player != null) {
-            //Heath
+            //Health
             int health = MathHelper.ceil(player.getHealth());
             int m = scaledWidth / 2 - 92;
             int n = scaledHeight - 39;
@@ -196,7 +196,7 @@ public class PlayerHud {
     }
 
     //Coordinates and Direction
-    public static void renderCoordinatesAndDirection(MatrixStack matrices, PlayerEntity player, TextRenderer textRenderer, int scaledWidth) {
+    public static void renderCoordinatesAndDirection(MatrixStack matrices, PlayerEntity player, TextRenderer textRenderer, int scaledWidth, int renderHeight) {
         Vec3d pos = player.getPos();
         Direction direction = player.getHorizontalFacing();
         if (HudiumClient.CONFIG.displayCoordinatesAndDirection) {
@@ -215,8 +215,8 @@ public class PlayerHud {
             }
             String directionStringTranslated = "-= " + I18n.translate(directionString) + " =-";
             int directionStringWidth = textRenderer.getWidth(directionStringTranslated);
-            textRenderer.drawWithShadow(matrices, posString, ((float)scaledWidth / 2) - ((float)posStringWidth / 2), 4, convertColor(HudiumClient.CONFIG.displayTextColor));
-            textRenderer.drawWithShadow(matrices, directionStringTranslated, ((float)scaledWidth / 2) - ((float)directionStringWidth / 2), 13, convertColor(HudiumClient.CONFIG.displayTextColor));
+            textRenderer.drawWithShadow(matrices, posString, ((float)scaledWidth / 2) - ((float)posStringWidth / 2), renderHeight, convertColor(HudiumClient.CONFIG.displayTextColor));
+            textRenderer.drawWithShadow(matrices, directionStringTranslated, ((float)scaledWidth / 2) - ((float)directionStringWidth / 2), renderHeight + 9, convertColor(HudiumClient.CONFIG.displayTextColor));
         }
     }
 
@@ -235,7 +235,7 @@ public class PlayerHud {
             PlayerListEntry playerInfo = MinecraftClient.getInstance().getNetworkHandler().getPlayerListEntry(MinecraftClient.getInstance().player.getUuid());
             if (playerInfo != null) {
                 int networkLatency = playerInfo.getLatency();
-                if (HudiumClient.CONFIG.displayNetworkLatency) extraInfo.add("Ping: " + networkLatency + " ms");
+                if (HudiumClient.CONFIG.displayNetworkLatency && !client.isInSingleplayer() /* Do not render in Singleplayer */) extraInfo.add(I18n.translate("info.hudium.ping") + networkLatency + " ms");
             }
         }
 
@@ -245,8 +245,8 @@ public class PlayerHud {
             RegistryEntry<Biome> biome = client.world.getBiome(player.getBlockPos());
             Identifier biomeIdentifier = client.world.getRegistryManager().get(Registry.BIOME_KEY).getId(biome.value());
             if (biomeIdentifier != null) {
-                String biomeName = PascalCase(Text.translatable("biome." + biomeIdentifier.getNamespace() + "." + biomeIdentifier.getPath()).getString());
-                if (HudiumClient.CONFIG.displayBiomeInfo) extraInfo.add("Biome: " + biomeName);
+                String biomeName = pascalCase(Text.translatable("biome." + biomeIdentifier.getNamespace() + "." + biomeIdentifier.getPath()).getString());
+                if (HudiumClient.CONFIG.displayBiomeInfo) extraInfo.add(I18n.translate("info.hudium.biome") + biomeName);
             }
             //Time
             String gameTime = formatTime((int)client.world.getTimeOfDay());
@@ -263,7 +263,7 @@ public class PlayerHud {
     }
 
     //Convert to PascalCase
-    public static String PascalCase(String inputString) {
+    public static String pascalCase(String inputString) {
         // Capitalize first letter of a String
         if (inputString == null) return null;
         return inputString.substring(0, 1).toUpperCase() + inputString.substring(1);

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import dev.intelligentcreations.hudium.client.gui.PlayerHud;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.hud.BossBarHud;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,6 +23,8 @@ public abstract class InGameHudMixin {
     @Shadow private int scaledHeight;
     @Shadow @Final private MinecraftClient client;
 
+    @Shadow public abstract BossBarHud getBossBarHud();
+
     @Inject(method = "render", at = @At("RETURN"))
     public void onRender(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
         PlayerEntity player = this.getCameraPlayer();
@@ -36,7 +39,7 @@ public abstract class InGameHudMixin {
                     PlayerHud.renderBlockInfo(matrices, client, player, tickDelta, textRenderer);
                 }
                 PlayerHud.renderDurabilityInfo(matrices, client, player, textRenderer, scaledHeight);
-                PlayerHud.renderCoordinatesAndDirection(matrices, player, textRenderer, scaledWidth);
+                PlayerHud.renderCoordinatesAndDirection(matrices, player, textRenderer, scaledWidth, 4 + (19 * ((BossBarHudAccessor)this.getBossBarHud()).getBossBars().size()));
                 PlayerHud.renderExtraInfo(matrices, client, player, textRenderer);
             }
         }

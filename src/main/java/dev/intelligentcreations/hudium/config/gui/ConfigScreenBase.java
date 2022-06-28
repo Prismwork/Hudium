@@ -85,7 +85,7 @@ public class ConfigScreenBase {
         this.displayNetworkLatency = new SpruceToggleBooleanOption("configEntry.hudium-config.displayNetworkLatency",
                 () -> HudiumClient.CONFIG.displayNetworkLatency,
                 newValue -> HudiumClient.CONFIG.displayNetworkLatency = newValue,
-                Text.translatable("entryInfo.hudium-config.displayFrameRate"));
+                Text.translatable("entryInfo.hudium-config.displayNetworkLatency"));
         this.displayBiomeInfo = new SpruceToggleBooleanOption("configEntry.hudium-config.displayBiomeInfo",
                 () -> HudiumClient.CONFIG.displayBiomeInfo,
                 newValue -> HudiumClient.CONFIG.displayBiomeInfo = newValue,
