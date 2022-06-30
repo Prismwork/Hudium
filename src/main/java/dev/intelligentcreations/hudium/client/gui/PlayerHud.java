@@ -221,10 +221,10 @@ public class PlayerHud {
                 GameMode gameMode = ((ClientPlayerInteractionManagerAccessor) client.interactionManager).getCurrentGameMode();
                 int offsetY;
                 switch (gameMode) {
-                    default -> offsetY = 48;
-                    case SURVIVAL -> offsetY = 48;
-                    case ADVENTURE -> offsetY = 48;
-                    case CREATIVE -> offsetY = 31;
+                    default -> offsetY = 50;
+                    case SURVIVAL -> offsetY = 50;
+                    case ADVENTURE -> offsetY = 50;
+                    case CREATIVE -> offsetY = 33;
                     case SPECTATOR -> offsetY = 12;
                 }
                 posY = scaledHeight - offsetY;
