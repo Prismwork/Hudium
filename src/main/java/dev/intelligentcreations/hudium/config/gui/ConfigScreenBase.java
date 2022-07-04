@@ -28,6 +28,7 @@ public class ConfigScreenBase {
     private final SpruceOption displayNetworkLatency;
     private final SpruceOption displayBiomeInfo;
     private final SpruceOption displayGameTime;
+    private final SpruceOption alternateBossBarFix;
     private final SpruceOption displayTextColor;
     private final SpruceOption displayInfoX;
     private final SpruceOption displayInfoY;
@@ -94,6 +95,10 @@ public class ConfigScreenBase {
                 () -> HudiumClient.CONFIG.displayGameTime,
                 newValue -> HudiumClient.CONFIG.displayGameTime = newValue,
                 Text.translatable("entryInfo.hudium-config.displayGameTime"));
+        this.alternateBossBarFix = new SpruceToggleBooleanOption("configEntry.hudium-config.alternateBossBarFix",
+                () -> HudiumClient.CONFIG.alternateBossBarFix,
+                newValue -> HudiumClient.CONFIG.alternateBossBarFix = newValue,
+                Text.translatable("entryInfo.hudium-config.alternateBossBarFix"));
         this.displayTextColor = new SpruceStringOption("configEntry.hudium-config.displayTextColor",
                 () -> HudiumClient.CONFIG.displayTextColor,
                 newValue -> HudiumClient.CONFIG.displayTextColor = newValue,
@@ -126,6 +131,7 @@ public class ConfigScreenBase {
             HudiumClient.CONFIG.displayNetworkLatency = true;
             HudiumClient.CONFIG.displayBiomeInfo = true;
             HudiumClient.CONFIG.displayGameTime = true;
+            HudiumClient.CONFIG.alternateBossBarFix = false;
             HudiumClient.CONFIG.displayTextColor = "FFFFFF";
             HudiumClient.CONFIG.displayInfoX = 4;
             HudiumClient.CONFIG.displayInfoY = 48;
@@ -154,6 +160,7 @@ public class ConfigScreenBase {
         list.addSingleOptionEntry(displayNetworkLatency);
         list.addSingleOptionEntry(displayBiomeInfo);
         list.addSingleOptionEntry(displayGameTime);
+        list.addSingleOptionEntry(alternateBossBarFix);
         list.addSingleOptionEntry(displayTextColor);
         list.addOptionEntry(displayInfoX, displayInfoY);
         list.addSingleOptionEntry(floatAndDoubleShowMode);

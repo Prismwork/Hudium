@@ -198,7 +198,7 @@ public class PlayerHud {
     }
 
     //Coordinates and Direction
-    public static void renderCoordinatesAndDirection(MatrixStack matrices, MinecraftClient client, PlayerEntity player, TextRenderer textRenderer, int scaledWidth, int scaledHeight, boolean bossBarEnabled) {
+    public static void renderCoordinatesAndDirection(MatrixStack matrices, MinecraftClient client, PlayerEntity player, TextRenderer textRenderer, int scaledWidth, int scaledHeight, int renderHeight, boolean bossBarEnabled) {
         Vec3d pos = player.getPos();
         Direction direction = player.getHorizontalFacing();
         if (HudiumClient.CONFIG.displayCoordinatesAndDirection) {
@@ -215,20 +215,24 @@ public class PlayerHud {
                 case WEST -> directionString = "info.hudium.direction.west";
                 case SOUTH -> directionString = "info.hudium.direction.south";
             }
-            int posY = 4;
+            int posY = renderHeight;
             int dirY = posY + 9;
-            if (!bossBarEnabled) {
-                GameMode gameMode = ((ClientPlayerInteractionManagerAccessor) client.interactionManager).getCurrentGameMode();
-                int offsetY;
-                switch (gameMode) {
-                    default -> offsetY = 50;
-                    case SURVIVAL -> offsetY = 50;
-                    case ADVENTURE -> offsetY = 50;
-                    case CREATIVE -> offsetY = 33;
-                    case SPECTATOR -> offsetY = 12;
+            if (HudiumClient.CONFIG.alternateBossBarFix) {
+                posY = 4;
+                dirY = posY + 9;
+                if (!bossBarEnabled) {
+                    GameMode gameMode = ((ClientPlayerInteractionManagerAccessor) client.interactionManager).getCurrentGameMode();
+                    int offsetY;
+                    switch (gameMode) {
+                        default -> offsetY = 50;
+                        case SURVIVAL -> offsetY = 50;
+                        case ADVENTURE -> offsetY = 50;
+                        case CREATIVE -> offsetY = 33;
+                        case SPECTATOR -> offsetY = 12;
+                    }
+                    posY = scaledHeight - offsetY;
+                    dirY = posY - 9;
                 }
-                posY = scaledHeight - offsetY;
-                dirY = posY - 9;
             }
             String directionStringTranslated = "-= " + I18n.translate(directionString) + " =-";
             int directionStringWidth = textRenderer.getWidth(directionStringTranslated);

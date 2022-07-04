@@ -39,7 +39,7 @@ public abstract class InGameHudMixin {
                     PlayerHud.renderBlockInfo(matrices, client, player, tickDelta, textRenderer);
                 }
                 PlayerHud.renderDurabilityInfo(matrices, client, player, textRenderer, scaledHeight);
-                PlayerHud.renderCoordinatesAndDirection(matrices, client, player, textRenderer, scaledWidth, scaledHeight, ((BossBarHudAccessor)this.getBossBarHud()).getBossBars().isEmpty());
+                PlayerHud.renderCoordinatesAndDirection(matrices, client, player, textRenderer, scaledWidth, scaledHeight, 4 + (19 * ((BossBarHudAccessor)this.getBossBarHud()).getBossBars().size()), ((BossBarHudAccessor)this.getBossBarHud()).getBossBars().isEmpty());
                 PlayerHud.renderExtraInfo(matrices, client, player, textRenderer);
             }
         }
