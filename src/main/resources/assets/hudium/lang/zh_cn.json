@@ -46,6 +46,7 @@
   "configEntry.hudium-config.displayNetworkLatency": "显示延迟",
   "configEntry.hudium-config.displayBiomeInfo": "显示生物群系信息",
   "configEntry.hudium-config.displayGameTime": "显示游戏内时间",
+  "configEntry.hudium-config.alternateBossBarFix": "need translation",
   "configEntry.hudium-config.floatAndDoubleShowMode": "单/双精度浮点数显示模式",
   "entryInfo.hudium-config.displayHealthValue": "指定是否显示生命数值。",
   "entryInfo.hudium-config.displayHungerValue": "指定是否显示饱食度数值。",
@@ -64,5 +65,6 @@
   "entryInfo.hudium-config.displayNetworkLatency": "指定是否显示网络延迟。",
   "entryInfo.hudium-config.displayBiomeInfo": "指定是否显示生物群系信息。",
   "entryInfo.hudium-config.displayGameTime": "指定是否显示游戏内时间。",
+  "entryInfo.hudium-config.alternateBossBarFix": "need translation",
   "entryInfo.hudium-config.floatAndDoubleShowMode": "指定单/双精度浮点数的显示模式。只能为ACCURATE、SEMI_ACCURATE或INTEGER。（现在仅用于实体生命显示）"
 }
