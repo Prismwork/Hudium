@@ -14,6 +14,8 @@
 
   "info.hudium.mineable": "Mineable: ",
 
+  "info.hudium.currentBGM": "Now Playing: %s",
+
   "info.hudium.suitableTool": "Suitable Tool: ",
   "info.hudium.suitableTool.minecraft.mineable.axe": "Axe",
   "info.hudium.suitableTool.minecraft.mineable.hoe": "Hoe",
@@ -28,6 +30,10 @@
   "info.hudium.miningLevel.level.2": "§fIron",
   "info.hudium.miningLevel.level.3": "§bDiamond",
   "info.hudium.miningLevel.level.4": "§4Netherite",
+
+  "minecraft.music.game.swamp.aerie": "Lena Raine - Aerie",
+  "minecraft.music.game.swamp.firebugs": "Lena Raine - Firebugs",
+  "minecraft.music.game.swamp.labyrinthine": "Lena Raine - Labyrinthine",
 
   "configEntry.hudium-config.displayHealthValue": "Display Health Value",
   "entryInfo.hudium-config.displayHealthValue": "Specify whether the health value will be displayed.",
@@ -65,6 +71,8 @@
   "entryInfo.hudium-config.displayGameTime": "Specify whether the in-game time will be displayed.",
   "configEntry.hudium-config.alternateBossBarFix": "Use Alternate Coordinates and Direction",
   "entryInfo.hudium-config.alternateBossBarFix": "Specify whether coordinates and direction will be rendered in an alternative way.",
+  "configEntry.hudium-config.renderShadowForText": "Render Shadow for Text",
+  "entryInfo.hudium-config.renderShadowForText": "Specify whether shadow should be rendered for text.",
   "configEntry.hudium-config.floatAndDoubleShowMode": "Float And Double Show Mode",
   "entryInfo.hudium-config.floatAndDoubleShowMode": "Specify the show mode of float values and double values. Can only be ACCURATE, SEMI_ACCURATE or INTEGER. (For now only used in entity health)"
 }

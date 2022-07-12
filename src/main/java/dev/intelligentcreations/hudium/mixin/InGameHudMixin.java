@@ -30,17 +30,19 @@ public abstract class InGameHudMixin {
         PlayerEntity player = this.getCameraPlayer();
         TextRenderer textRenderer = this.getTextRenderer();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        if (!client.options.hudHidden) {
-            if (!player.isCreative() && !player.isSpectator()) {
-                PlayerHud.renderMiscValues(matrices, player, textRenderer, scaledWidth, scaledHeight);
-            }
-            if (!this.client.options.debugEnabled) {
-                if (!PlayerHud.renderEntityInfo(matrices, client, player, tickDelta, textRenderer)) {
-                    PlayerHud.renderBlockInfo(matrices, client, player, tickDelta, textRenderer);
+        if (player != null) { // Make sure player is not null
+            if (!client.options.hudHidden) {
+                if (!player.isCreative() && !player.isSpectator()) {
+                    PlayerHud.renderMiscValues(matrices, player, textRenderer, scaledWidth, scaledHeight);
                 }
-                PlayerHud.renderDurabilityInfo(matrices, client, player, textRenderer, scaledHeight);
-                PlayerHud.renderCoordinatesAndDirection(matrices, client, player, textRenderer, scaledWidth, scaledHeight, 4 + (19 * ((BossBarHudAccessor)this.getBossBarHud()).getBossBars().size()), ((BossBarHudAccessor)this.getBossBarHud()).getBossBars().isEmpty());
-                PlayerHud.renderExtraInfo(matrices, client, player, textRenderer);
+                if (!this.client.options.debugEnabled) {
+                    if (!PlayerHud.renderEntityInfo(matrices, client, player, tickDelta, textRenderer)) {
+                        PlayerHud.renderBlockInfo(matrices, client, player, tickDelta, textRenderer);
+                    }
+                    PlayerHud.renderDurabilityInfo(matrices, client, player, textRenderer, scaledHeight);
+                    PlayerHud.renderCoordinatesAndDirection(matrices, client, player, textRenderer, scaledWidth, scaledHeight, 4 + Math.min(19 * ((BossBarHudAccessor) this.getBossBarHud()).getBossBars().size(), client.getWindow().getScaledHeight() / 3), ((BossBarHudAccessor) this.getBossBarHud()).getBossBars().isEmpty());
+                    PlayerHud.renderExtraInfo(matrices, client, player, textRenderer);
+                }
             }
         }
         RenderSystem.disableBlend();

@@ -29,6 +29,7 @@ public class ConfigScreenBase {
     private final SpruceOption displayBiomeInfo;
     private final SpruceOption displayGameTime;
     private final SpruceOption alternateBossBarFix;
+    private final SpruceOption renderShadowForText;
     private final SpruceOption displayTextColor;
     private final SpruceOption displayInfoX;
     private final SpruceOption displayInfoY;
@@ -99,6 +100,10 @@ public class ConfigScreenBase {
                 () -> HudiumClient.CONFIG.alternateBossBarFix,
                 newValue -> HudiumClient.CONFIG.alternateBossBarFix = newValue,
                 Text.translatable("entryInfo.hudium-config.alternateBossBarFix"));
+        this.renderShadowForText = new SpruceToggleBooleanOption("configEntry.hudium-config.renderShadowForText",
+                () -> HudiumClient.CONFIG.renderShadowForText,
+                newValue -> HudiumClient.CONFIG.renderShadowForText = newValue,
+                Text.translatable("entryInfo.hudium-config.renderShadowForText"));
         this.displayTextColor = new SpruceStringOption("configEntry.hudium-config.displayTextColor",
                 () -> HudiumClient.CONFIG.displayTextColor,
                 newValue -> HudiumClient.CONFIG.displayTextColor = newValue,
@@ -132,6 +137,7 @@ public class ConfigScreenBase {
             HudiumClient.CONFIG.displayBiomeInfo = true;
             HudiumClient.CONFIG.displayGameTime = true;
             HudiumClient.CONFIG.alternateBossBarFix = false;
+            HudiumClient.CONFIG.renderShadowForText = true;
             HudiumClient.CONFIG.displayTextColor = "FFFFFF";
             HudiumClient.CONFIG.displayInfoX = 4;
             HudiumClient.CONFIG.displayInfoY = 48;
@@ -160,6 +166,7 @@ public class ConfigScreenBase {
         list.addSingleOptionEntry(displayNetworkLatency);
         list.addSingleOptionEntry(displayBiomeInfo);
         list.addSingleOptionEntry(displayGameTime);
+        list.addSingleOptionEntry(renderShadowForText);
         list.addSingleOptionEntry(alternateBossBarFix);
         list.addSingleOptionEntry(displayTextColor);
         list.addOptionEntry(displayInfoX, displayInfoY);

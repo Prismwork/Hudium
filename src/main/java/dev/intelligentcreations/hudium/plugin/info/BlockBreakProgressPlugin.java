@@ -2,6 +2,7 @@ package dev.intelligentcreations.hudium.plugin.info;
 
 import dev.intelligentcreations.hudium.api.info.plugin.BlockInfoPlugin;
 import dev.intelligentcreations.hudium.mixin.ClientPlayerInteractionManagerAccessor;
+import dev.intelligentcreations.hudium.util.TextRendererUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -18,7 +19,7 @@ public class BlockBreakProgressPlugin implements BlockInfoPlugin {
         int progress = (int) (((ClientPlayerInteractionManagerAccessor) client.interactionManager).getCurrentBreakingProgress() * 100);
         occupySpace = progress > 0;
         if (occupySpace) {
-            textRenderer.drawWithShadow(matrices, I18n.translate("info.hudium.breakProgress") + progress + "%", renderX, renderY, 5592405);
+            TextRendererUtil.renderText(textRenderer, matrices, I18n.translate("info.hudium.breakProgress") + progress + "%", renderX, renderY, 5592405);
         }
     }
 

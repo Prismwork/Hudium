@@ -4,7 +4,9 @@ import dev.intelligentcreations.hudium.HudiumClient;
 import dev.intelligentcreations.hudium.api.info.plugin.*;
 import dev.intelligentcreations.hudium.mixin.ClientFrameRateAccessor;
 import dev.intelligentcreations.hudium.mixin.ClientPlayerInteractionManagerAccessor;
+import dev.intelligentcreations.hudium.mixin.MusicTrackerAccessor;
 import dev.intelligentcreations.hudium.util.RaycastUtil;
+import dev.intelligentcreations.hudium.util.TextRendererUtil;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
@@ -15,12 +17,15 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.sound.MusicSound;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -47,40 +52,40 @@ public class PlayerHud {
             int n = scaledHeight - 39;
             int healthTextWidth = textRenderer.getWidth(String.valueOf(health));
             if (HudiumClient.CONFIG.displayHealthValue)
-                textRenderer.drawWithShadow(matrices, String.valueOf(health), m - healthTextWidth, n, convertColor(HudiumClient.CONFIG.displayTextColor));
+                TextRendererUtil.renderText(textRenderer, matrices, String.valueOf(health), m - healthTextWidth, n, convertColor(HudiumClient.CONFIG.displayTextColor));
             //Hunger
             HungerManager hungerManager = player.getHungerManager();
             int hunger = hungerManager.getFoodLevel();
             int o = scaledWidth / 2 + 92;
             int hungerTextWidth = textRenderer.getWidth(String.valueOf(hunger));
             if (HudiumClient.CONFIG.displayHungerValue)
-                textRenderer.drawWithShadow(matrices, String.valueOf(hunger), o, n, convertColor(HudiumClient.CONFIG.displayTextColor));
+                TextRendererUtil.renderText(textRenderer, matrices, String.valueOf(hunger), o, n, convertColor(HudiumClient.CONFIG.displayTextColor));
             //Saturation
             int saturation = MathHelper.ceil(hungerManager.getSaturationLevel());
             if (HudiumClient.CONFIG.displaySaturationValue)
-                textRenderer.drawWithShadow(matrices, String.valueOf(saturation), o + hungerTextWidth + 4, n, convertColor(HudiumClient.CONFIG.displayTextColor));
+                TextRendererUtil.renderText(textRenderer, matrices, String.valueOf(saturation), o + hungerTextWidth + 4, n, convertColor(HudiumClient.CONFIG.displayTextColor));
             //Food
             ItemStack mainHandStack = player.getMainHandStack();
             if (mainHandStack.isFood()) {
                 int stackFoodLevel = Math.min(Objects.requireNonNull(mainHandStack.getItem().getFoodComponent()).getHunger(), hungerManager.getPrevFoodLevel() - hungerManager.getFoodLevel());
                 int stackSaturationLevel = MathHelper.ceil(Math.min((float) (mainHandStack.getItem().getFoodComponent()).getHunger() * Objects.requireNonNull(mainHandStack.getItem().getFoodComponent()).getSaturationModifier() * 2.0f, (float) hunger - (float) saturation));
                 if (HudiumClient.CONFIG.displayHungerValue)
-                    textRenderer.drawWithShadow(matrices, String.valueOf(stackFoodLevel), o, n + 10, 8453920);
+                    TextRendererUtil.renderText(textRenderer, matrices, String.valueOf(stackFoodLevel), o, n + 10, 8453920);
                 if (HudiumClient.CONFIG.displaySaturationValue)
-                    textRenderer.drawWithShadow(matrices, String.valueOf(stackSaturationLevel), o + hungerTextWidth + 4, n + 10, 8453920);
+                    TextRendererUtil.renderText(textRenderer, matrices, String.valueOf(stackSaturationLevel), o + hungerTextWidth + 4, n + 10, 8453920);
             }
             //Armor
             int armor = player.getArmor();
             if (armor > 0) {
                 int armorTextWidth = textRenderer.getWidth(String.valueOf(armor));
                 if (HudiumClient.CONFIG.displayArmorValue)
-                    textRenderer.drawWithShadow(matrices, String.valueOf(armor), m - armorTextWidth, n - 9, convertColor(HudiumClient.CONFIG.displayTextColor));
+                    TextRendererUtil.renderText(textRenderer, matrices, String.valueOf(armor), m - armorTextWidth, n - 9, convertColor(HudiumClient.CONFIG.displayTextColor));
             }
             //Air
             int air = player.getAir();
             if (air < 300) {
                 if (HudiumClient.CONFIG.displayAirValue)
-                    textRenderer.drawWithShadow(matrices, String.valueOf(air), o, n - 9, convertColor(HudiumClient.CONFIG.displayTextColor));
+                    TextRendererUtil.renderText(textRenderer, matrices, String.valueOf(air), o, n - 9, convertColor(HudiumClient.CONFIG.displayTextColor));
             }
         }
     }
@@ -101,7 +106,7 @@ public class PlayerHud {
                         client.getItemRenderer().renderGuiItemIcon(stack, i, j);
                         i += 17;
                     }
-                    textRenderer.drawWithShadow(matrices, I18n.translate(state.getBlock().getTranslationKey()), i, j, convertColor(HudiumClient.CONFIG.displayTextColor));
+                    TextRendererUtil.renderText(textRenderer, matrices, I18n.translate(state.getBlock().getTranslationKey()), i, j, convertColor(HudiumClient.CONFIG.displayTextColor));
                     if (!InfoPluginHandler.getPlugins().isEmpty()) {
                         for (int q = 0; q < InfoPluginHandler.getPlugins().size(); q++) {
                             if (InfoPluginHandler.getPlugins().get(q) instanceof BlockInfoPlugin plugin) {
@@ -112,7 +117,7 @@ public class PlayerHud {
                             }
                         }
                     }
-                    textRenderer.drawWithShadow(matrices, Text.literal(FabricLoader.getInstance().getModContainer(Registry.BLOCK.getId(state.getBlock()).getNamespace()).get().getMetadata().getName()).formatted(Formatting.BLUE, Formatting.ITALIC), i, j + m, 5592575);
+                    TextRendererUtil.renderText(textRenderer, matrices, Text.literal(FabricLoader.getInstance().getModContainer(Registry.BLOCK.getId(state.getBlock()).getNamespace()).get().getMetadata().getName()).formatted(Formatting.BLUE, Formatting.ITALIC), i, j + m, 5592575);
                 }
                 bl = true;
             }
@@ -129,7 +134,7 @@ public class PlayerHud {
         if (result instanceof EntityHitResult ehr) {
             if (HudiumClient.CONFIG.displayEntityInfo) {
                 Entity entity = ehr.getEntity();
-                textRenderer.drawWithShadow(matrices, entity.getName(), i, j, convertColor(HudiumClient.CONFIG.displayTextColor));
+                TextRendererUtil.renderText(textRenderer, matrices, entity.getName(), i, j, convertColor(HudiumClient.CONFIG.displayTextColor));
                 int m = 9;
                 if (!InfoPluginHandler.getPlugins().isEmpty()) {
                     for (int q = 0; q < InfoPluginHandler.getPlugins().size(); q++) {
@@ -141,7 +146,7 @@ public class PlayerHud {
                         }
                     }
                 }
-                textRenderer.drawWithShadow(matrices, Text.literal(FabricLoader.getInstance().getModContainer(Registry.ENTITY_TYPE.getId(entity.getType()).getNamespace()).get().getMetadata().getName()).formatted(Formatting.BLUE, Formatting.ITALIC), i, j + m, 5592575);
+                TextRendererUtil.renderText(textRenderer, matrices, Text.literal(FabricLoader.getInstance().getModContainer(Registry.ENTITY_TYPE.getId(entity.getType()).getNamespace()).get().getMetadata().getName()).formatted(Formatting.BLUE, Formatting.ITALIC), i, j + m, 5592575);
             }
             bl = true;
         }
@@ -161,37 +166,37 @@ public class PlayerHud {
             if (!headStack.isEmpty()) {
                 client.getItemRenderer().renderGuiItemIcon(headStack, i, scaledHeight - i - 64);
                 if (headStack.isDamageable()) {
-                    textRenderer.drawWithShadow(matrices, String.valueOf(headStack.getMaxDamage() - headStack.getDamage()), i + 17, scaledHeight - i - 60, convertColor(HudiumClient.CONFIG.displayTextColor));
+                    TextRendererUtil.renderText(textRenderer, matrices, String.valueOf(headStack.getMaxDamage() - headStack.getDamage()), i + 17, scaledHeight - i - 60, convertColor(HudiumClient.CONFIG.displayTextColor));
                 }
             }
             if (!chestStack.isEmpty()) {
                 client.getItemRenderer().renderGuiItemIcon(chestStack, i, scaledHeight - i - 48);
                 if (chestStack.isDamageable()) {
-                    textRenderer.drawWithShadow(matrices, String.valueOf(chestStack.getMaxDamage() - chestStack.getDamage()), i + 17, scaledHeight - i - 44, convertColor(HudiumClient.CONFIG.displayTextColor));
+                    TextRendererUtil.renderText(textRenderer, matrices, String.valueOf(chestStack.getMaxDamage() - chestStack.getDamage()), i + 17, scaledHeight - i - 44, convertColor(HudiumClient.CONFIG.displayTextColor));
                 }
             }
             if (!legsStack.isEmpty()) {
                 client.getItemRenderer().renderGuiItemIcon(legsStack, i, scaledHeight - i - 32);
                 if (legsStack.isDamageable()) {
-                    textRenderer.drawWithShadow(matrices, String.valueOf(legsStack.getMaxDamage() - legsStack.getDamage()), i + 17, scaledHeight - i - 28, convertColor(HudiumClient.CONFIG.displayTextColor));
+                    TextRendererUtil.renderText(textRenderer, matrices, String.valueOf(legsStack.getMaxDamage() - legsStack.getDamage()), i + 17, scaledHeight - i - 28, convertColor(HudiumClient.CONFIG.displayTextColor));
                 }
             }
             if (!feetStack.isEmpty()) {
                 client.getItemRenderer().renderGuiItemIcon(feetStack, i, scaledHeight - i - 16);
                 if (feetStack.isDamageable()) {
-                    textRenderer.drawWithShadow(matrices, String.valueOf(feetStack.getMaxDamage() - feetStack.getDamage()), i + 17, scaledHeight - i - 12, convertColor(HudiumClient.CONFIG.displayTextColor));
+                    TextRendererUtil.renderText(textRenderer, matrices, String.valueOf(feetStack.getMaxDamage() - feetStack.getDamage()), i + 17, scaledHeight - i - 12, convertColor(HudiumClient.CONFIG.displayTextColor));
                 }
             }
             if (!mainHandStack.isEmpty()) {
                 client.getItemRenderer().renderGuiItemIcon(mainHandStack, i, scaledHeight - i - 96);
                 if (mainHandStack.isDamageable()) {
-                    textRenderer.drawWithShadow(matrices, String.valueOf(mainHandStack.getMaxDamage() - mainHandStack.getDamage()), i + 17, scaledHeight - i - 92, convertColor(HudiumClient.CONFIG.displayTextColor));
+                    TextRendererUtil.renderText(textRenderer, matrices, String.valueOf(mainHandStack.getMaxDamage() - mainHandStack.getDamage()), i + 17, scaledHeight - i - 92, convertColor(HudiumClient.CONFIG.displayTextColor));
                 }
             }
             if (!offHandStack.isEmpty()) {
                 client.getItemRenderer().renderGuiItemIcon(offHandStack, i, scaledHeight - i - 80);
                 if (offHandStack.isDamageable()) {
-                    textRenderer.drawWithShadow(matrices, String.valueOf(offHandStack.getMaxDamage() - offHandStack.getDamage()), i + 17, scaledHeight - i - 76, convertColor(HudiumClient.CONFIG.displayTextColor));
+                    TextRendererUtil.renderText(textRenderer, matrices, String.valueOf(offHandStack.getMaxDamage() - offHandStack.getDamage()), i + 17, scaledHeight - i - 76, convertColor(HudiumClient.CONFIG.displayTextColor));
                 }
             }
         }
@@ -236,8 +241,8 @@ public class PlayerHud {
             }
             String directionStringTranslated = "-= " + I18n.translate(directionString) + " =-";
             int directionStringWidth = textRenderer.getWidth(directionStringTranslated);
-            textRenderer.drawWithShadow(matrices, posString, ((float)scaledWidth / 2) - ((float)posStringWidth / 2), posY, convertColor(HudiumClient.CONFIG.displayTextColor));
-            textRenderer.drawWithShadow(matrices, directionStringTranslated, ((float)scaledWidth / 2) - ((float)directionStringWidth / 2), dirY, convertColor(HudiumClient.CONFIG.displayTextColor));
+            TextRendererUtil.renderText(textRenderer, matrices, posString, ((float)scaledWidth / 2) - ((float)posStringWidth / 2), posY, convertColor(HudiumClient.CONFIG.displayTextColor));
+            TextRendererUtil.renderText(textRenderer, matrices, directionStringTranslated, ((float)scaledWidth / 2) - ((float)directionStringWidth / 2), dirY, convertColor(HudiumClient.CONFIG.displayTextColor));
         }
     }
 
@@ -274,11 +279,17 @@ public class PlayerHud {
             if (HudiumClient.CONFIG.displayGameTime) extraInfo.add(gameTime);
         }
 
+        // Current playing BGM
+        if (((MusicTrackerAccessor) client.getMusicTracker()).getCurrent() != null) {
+            SoundInstance current = ((MusicTrackerAccessor) client.getMusicTracker()).getCurrent();
+            extraInfo.add(I18n.translate("info.hudium.currentBGM", I18n.translate(current.getSound().getIdentifier().toTranslationKey().replace("/", "."))));
+        }
+
         //Render Extra Info
         int x = 4;
         int y = 4;
         for (String info : extraInfo) {
-            textRenderer.drawWithShadow(matrices, info, x, y, convertColor(HudiumClient.CONFIG.displayTextColor));
+            TextRendererUtil.renderText(textRenderer, matrices, info, x, y, convertColor(HudiumClient.CONFIG.displayTextColor));
             y += 9;
         }
     }

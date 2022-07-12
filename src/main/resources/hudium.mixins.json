@@ -12,6 +12,7 @@
     "ClientPlayerInteractionManagerAccessor",
     "GameMenuScreenMixin",
     "InGameHudMixin",
+    "MusicTrackerAccessor",
     "TitleScreenMixin"
   ],
   "injectors": {

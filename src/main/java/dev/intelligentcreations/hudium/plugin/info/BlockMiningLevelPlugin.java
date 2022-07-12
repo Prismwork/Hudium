@@ -1,6 +1,7 @@
 package dev.intelligentcreations.hudium.plugin.info;
 
 import dev.intelligentcreations.hudium.api.info.plugin.BlockInfoPlugin;
+import dev.intelligentcreations.hudium.util.TextRendererUtil;
 import dev.intelligentcreations.hudium.util.ToolHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -41,8 +42,8 @@ public class BlockMiningLevelPlugin implements BlockInfoPlugin {
                 int level = entry.getRight();
                 ItemStack stack = camera.getMainHandStack();
                 boolean mineable = !state.isToolRequired() || (!stack.isEmpty() && ToolHandler.isEffective(stack, state));
-                textRenderer.drawWithShadow(matrices, Text.translatable("info.hudium.mineable").formatted(Formatting.DARK_GRAY).append(Text.literal(mineable ? "\u2714" : "\u2718").formatted(mineable ? Formatting.GREEN : Formatting.RED)), renderX, renderY, 5592405);
-                textRenderer.drawWithShadow(matrices, Text.translatable("info.hudium.suitableTool").formatted(Formatting.DARK_GRAY).append(handler.getToolDisplay()), renderX, renderY + 9, 5592405);
+                TextRendererUtil.renderText(textRenderer, matrices, Text.translatable("info.hudium.mineable").formatted(Formatting.DARK_GRAY).append(Text.literal(mineable ? "\u2714" : "\u2718").formatted(mineable ? Formatting.GREEN : Formatting.RED)), renderX, renderY, 5592405);
+                TextRendererUtil.renderText(textRenderer, matrices, Text.translatable("info.hudium.suitableTool").formatted(Formatting.DARK_GRAY).append(handler.getToolDisplay()), renderX, renderY + 9, 5592405);
                 requiresLevel = level > 0;
                 if (requiresLevel) {
                     String text = String.valueOf(level);
@@ -53,7 +54,7 @@ public class BlockMiningLevelPlugin implements BlockInfoPlugin {
                         }
                         text = I18n.translate("info.hudium.miningLevel.level", translate, level);
                     }
-                    textRenderer.drawWithShadow(matrices, Text.translatable("info.hudium.miningLevel").formatted(Formatting.DARK_GRAY).append(Text.literal(text)), renderX, renderY + 18, 5592405);
+                    TextRendererUtil.renderText(textRenderer, matrices, Text.translatable("info.hudium.miningLevel").formatted(Formatting.DARK_GRAY).append(Text.literal(text)), renderX, renderY + 18, 5592405);
                 }
             }
         }

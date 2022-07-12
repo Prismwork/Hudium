@@ -61,6 +61,9 @@ public class HudiumConfig implements Config {
     @Comment(value = "Specify whether coordinates and direction will be rendered in an alternative way.")
     public boolean alternateBossBarFix = false;
 
+    @Comment(value = "Specify whether the shadow of strings will be rendered.")
+    public boolean renderShadowForText = true;
+
     @Comment(value = "Specify the show mode of float values and double values. Can only be ACCURATE, SEMI_ACCURATE or INTEGER. (For now only used in entity health)")
     public FloatAndDoubleShowMode floatAndDoubleShowMode = FloatAndDoubleShowMode.ACCURATE;
 
