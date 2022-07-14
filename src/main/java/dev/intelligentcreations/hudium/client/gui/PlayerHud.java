@@ -23,7 +23,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.CompassItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.sound.MusicSound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
@@ -241,8 +243,15 @@ public class PlayerHud {
             }
             String directionStringTranslated = "-= " + I18n.translate(directionString) + " =-";
             int directionStringWidth = textRenderer.getWidth(directionStringTranslated);
-            TextRendererUtil.renderText(textRenderer, matrices, posString, ((float)scaledWidth / 2) - ((float)posStringWidth / 2), posY, convertColor(HudiumClient.CONFIG.displayTextColor));
-            TextRendererUtil.renderText(textRenderer, matrices, directionStringTranslated, ((float)scaledWidth / 2) - ((float)directionStringWidth / 2), dirY, convertColor(HudiumClient.CONFIG.displayTextColor));
+            if (!HudiumClient.CONFIG.holdToolsForInfo) {
+                TextRendererUtil.renderText(textRenderer, matrices, posString, ((float) scaledWidth / 2) - ((float) posStringWidth / 2), posY, convertColor(HudiumClient.CONFIG.displayTextColor));
+                TextRendererUtil.renderText(textRenderer, matrices, directionStringTranslated, ((float) scaledWidth / 2) - ((float) directionStringWidth / 2), dirY, convertColor(HudiumClient.CONFIG.displayTextColor));
+            } else {
+                if (player.getMainHandStack().getItem() instanceof CompassItem || player.getOffHandStack().getItem() instanceof CompassItem) {
+                    TextRendererUtil.renderText(textRenderer, matrices, posString, ((float) scaledWidth / 2) - ((float) posStringWidth / 2), posY, convertColor(HudiumClient.CONFIG.displayTextColor));
+                    TextRendererUtil.renderText(textRenderer, matrices, directionStringTranslated, ((float) scaledWidth / 2) - ((float) directionStringWidth / 2), dirY, convertColor(HudiumClient.CONFIG.displayTextColor));
+                }
+            }
         }
     }
 
@@ -276,13 +285,16 @@ public class PlayerHud {
             }
             //Time
             String gameTime = formatTime((int)client.world.getTimeOfDay());
-            if (HudiumClient.CONFIG.displayGameTime) extraInfo.add(gameTime);
+            if (HudiumClient.CONFIG.displayGameTime) {
+                if (!HudiumClient.CONFIG.holdToolsForInfo) extraInfo.add(gameTime);
+                else if (player.getMainHandStack().getItem() == Items.CLOCK || player.getOffHandStack().getItem() == Items.CLOCK) extraInfo.add(gameTime);
+            }
         }
 
         // Current playing BGM
         if (((MusicTrackerAccessor) client.getMusicTracker()).getCurrent() != null) {
             SoundInstance current = ((MusicTrackerAccessor) client.getMusicTracker()).getCurrent();
-            extraInfo.add(I18n.translate("info.hudium.currentBGM", I18n.translate(current.getSound().getIdentifier().toTranslationKey().replace("/", "."))));
+            if (HudiumClient.CONFIG.displayBGMInfo) extraInfo.add(I18n.translate("info.hudium.currentBGM", I18n.translate(current.getSound().getIdentifier().toTranslationKey().replace("/", "."))));
         }
 
         //Render Extra Info

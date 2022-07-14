@@ -4,6 +4,7 @@ import dev.intelligentcreations.hudium.HudiumClient;
 import dev.intelligentcreations.hudium.config.misc.FloatAndDoubleShowMode;
 import draylar.omegaconfig.api.Comment;
 import draylar.omegaconfig.api.Config;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class HudiumConfig implements Config {
@@ -58,6 +59,12 @@ public class HudiumConfig implements Config {
     @Comment(value = "Specify whether the in-game time will be displayed.")
     public boolean displayGameTime = true;
 
+    @Comment(value = "Specify whether the BGM info will be displayed.")
+    public boolean displayBGMInfo = true;
+
+    @Comment(value = "Specify whether specific tools are required holding in hands for some info.")
+    public boolean holdToolsForInfo = false;
+
     @Comment(value = "Specify whether coordinates and direction will be rendered in an alternative way.")
     public boolean alternateBossBarFix = false;
 
@@ -80,5 +87,30 @@ public class HudiumConfig implements Config {
     @Override
     public String getExtension() {
         return "json5";
+    }
+
+    public static void reset(@NotNull HudiumConfig cfg) {
+        cfg.displayHealthValue = true;
+        cfg.displayHungerValue = true;
+        cfg.displaySaturationValue = true;
+        cfg.displayArmorValue = true;
+        cfg.displayAirValue = true;
+        cfg.displayBlockInfo = true;
+        cfg.displayFluidInfo = true;
+        cfg.displayEntityInfo = true;
+        cfg.displayDurabilityInfo = true;
+        cfg.displayCoordinatesAndDirection = true;
+        cfg.displayFrameRate = true;
+        cfg.displayNetworkLatency = true;
+        cfg.displayBiomeInfo = true;
+        cfg.displayGameTime = true;
+        cfg.displayBGMInfo = true;
+        cfg.holdToolsForInfo = false;
+        cfg.alternateBossBarFix = false;
+        cfg.renderShadowForText = true;
+        cfg.displayTextColor = "FFFFFF";
+        cfg.displayInfoX = 4;
+        cfg.displayInfoY = 48;
+        cfg.floatAndDoubleShowMode = FloatAndDoubleShowMode.ACCURATE;
     }
 }

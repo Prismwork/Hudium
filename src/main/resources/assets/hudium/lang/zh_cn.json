@@ -59,7 +59,7 @@
   "entryInfo.hudium-config.displaySaturationValue": "指定是否显示饱和度数值。",
   "entryInfo.hudium-config.displayArmorValue": "指定是否显示盔甲值数值。",
   "entryInfo.hudium-config.displayAirValue": "指定是否显示氧气数值。",
-  "entryInfo.hudium-config.displayTextColor": "指定信息文字的颜色（十六进制）。",
+  "entryInfo.hudium-config.displayTextColor": "指定信息文字的颜色 (十六进制)。",
   "entryInfo.hudium-config.displayInfoX": "指定摆放信息的X坐标。",
   "entryInfo.hudium-config.displayInfoY": "指定摆放信息的Y坐标。",
   "entryInfo.hudium-config.displayBlockInfo": "指定是否显示方块信息。",
@@ -72,7 +72,11 @@
   "entryInfo.hudium-config.displayBiomeInfo": "指定是否显示生物群系信息。",
   "entryInfo.hudium-config.displayGameTime": "指定是否显示游戏内时间。",
   "entryInfo.hudium-config.alternateBossBarFix": "指定是否对坐标和朝向使用备用的修复方案以免被 Boss 血条遮挡。",
-  "entryInfo.hudium-config.floatAndDoubleShowMode": "指定单/双精度浮点数的显示模式。只能为 ACCURATE、SEMI_ACCURATE 或 INTEGER。（现在仅用于实体生命显示）",
+  "entryInfo.hudium-config.floatAndDoubleShowMode": "指定单/双精度浮点数的显示模式。只能为 ACCURATE、SEMI_ACCURATE 或 INTEGER。 (现在仅用于实体生命显示)",
   "configEntry.hudium-config.renderShadowForText": "绘制文字阴影",
-  "entryInfo.hudium-config.renderShadowForText": "指定是否为文字绘制阴影。"
+  "entryInfo.hudium-config.renderShadowForText": "指定是否为文字绘制阴影。",
+  "configEntry.hudium-config.displayBGMInfo": "显示背景音乐 (BGM) 信息",
+  "entryInfo.hudium-config.displayBGMInfo": "指定是否显示正在播放的背景音乐。",
+  "configEntry.hudium-config.holdToolsForInfo": "手持工具以显示特定信息",
+  "entryInfo.hudium-config.holdToolsForInfo": "指定是否需要手持特定工具以显示某些信息。"
 }

@@ -22,7 +22,6 @@ public abstract class InGameHudMixin {
     @Shadow private int scaledWidth;
     @Shadow private int scaledHeight;
     @Shadow @Final private MinecraftClient client;
-
     @Shadow public abstract BossBarHud getBossBarHud();
 
     @Inject(method = "render", at = @At("RETURN"))

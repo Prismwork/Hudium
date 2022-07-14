@@ -1,6 +1,7 @@
 package dev.intelligentcreations.hudium.config.gui;
 
 import dev.intelligentcreations.hudium.HudiumClient;
+import dev.intelligentcreations.hudium.config.HudiumConfig;
 import dev.intelligentcreations.hudium.config.misc.FloatAndDoubleShowMode;
 import dev.lambdaurora.spruceui.Position;
 import dev.lambdaurora.spruceui.option.*;
@@ -28,6 +29,8 @@ public class ConfigScreenBase {
     private final SpruceOption displayNetworkLatency;
     private final SpruceOption displayBiomeInfo;
     private final SpruceOption displayGameTime;
+    private final SpruceOption displayBGMInfo;
+    private final SpruceOption holdToolsForInfo;
     private final SpruceOption alternateBossBarFix;
     private final SpruceOption renderShadowForText;
     private final SpruceOption displayTextColor;
@@ -96,6 +99,14 @@ public class ConfigScreenBase {
                 () -> HudiumClient.CONFIG.displayGameTime,
                 newValue -> HudiumClient.CONFIG.displayGameTime = newValue,
                 Text.translatable("entryInfo.hudium-config.displayGameTime"));
+        this.displayBGMInfo = new SpruceToggleBooleanOption("configEntry.hudium-config.displayBGMInfo",
+                () -> HudiumClient.CONFIG.displayBGMInfo,
+                newValue -> HudiumClient.CONFIG.displayBGMInfo = newValue,
+                Text.translatable("entryInfo.hudium-config.displayBGMInfo"));
+        this.holdToolsForInfo = new SpruceToggleBooleanOption("configEntry.hudium-config.holdToolsForInfo",
+                () -> HudiumClient.CONFIG.holdToolsForInfo,
+                newValue -> HudiumClient.CONFIG.holdToolsForInfo = newValue,
+                Text.translatable("entryInfo.hudium-config.holdToolsForInfo"));
         this.alternateBossBarFix = new SpruceToggleBooleanOption("configEntry.hudium-config.alternateBossBarFix",
                 () -> HudiumClient.CONFIG.alternateBossBarFix,
                 newValue -> HudiumClient.CONFIG.alternateBossBarFix = newValue,
@@ -122,26 +133,7 @@ public class ConfigScreenBase {
                 option -> option.getDisplayText(Text.literal(HudiumClient.CONFIG.floatAndDoubleShowMode.asString())),
                 Text.translatable("entryInfo.hudium-config.floatAndDoubleShowMode"));
         this.reset = SpruceSimpleActionOption.reset(btn -> {
-            HudiumClient.CONFIG.displayHealthValue = true;
-            HudiumClient.CONFIG.displayHungerValue = true;
-            HudiumClient.CONFIG.displaySaturationValue = true;
-            HudiumClient.CONFIG.displayArmorValue = true;
-            HudiumClient.CONFIG.displayAirValue = true;
-            HudiumClient.CONFIG.displayBlockInfo = true;
-            HudiumClient.CONFIG.displayFluidInfo = true;
-            HudiumClient.CONFIG.displayEntityInfo = true;
-            HudiumClient.CONFIG.displayDurabilityInfo = true;
-            HudiumClient.CONFIG.displayCoordinatesAndDirection = true;
-            HudiumClient.CONFIG.displayFrameRate = true;
-            HudiumClient.CONFIG.displayNetworkLatency = true;
-            HudiumClient.CONFIG.displayBiomeInfo = true;
-            HudiumClient.CONFIG.displayGameTime = true;
-            HudiumClient.CONFIG.alternateBossBarFix = false;
-            HudiumClient.CONFIG.renderShadowForText = true;
-            HudiumClient.CONFIG.displayTextColor = "FFFFFF";
-            HudiumClient.CONFIG.displayInfoX = 4;
-            HudiumClient.CONFIG.displayInfoY = 48;
-            HudiumClient.CONFIG.floatAndDoubleShowMode = FloatAndDoubleShowMode.ACCURATE;
+            HudiumConfig.reset(HudiumClient.CONFIG);
             if (this.resetConsumer != null) this.resetConsumer.accept(btn);
         });
     }
@@ -166,6 +158,8 @@ public class ConfigScreenBase {
         list.addSingleOptionEntry(displayNetworkLatency);
         list.addSingleOptionEntry(displayBiomeInfo);
         list.addSingleOptionEntry(displayGameTime);
+        list.addSingleOptionEntry(displayBGMInfo);
+        list.addSingleOptionEntry(holdToolsForInfo);
         list.addSingleOptionEntry(renderShadowForText);
         list.addSingleOptionEntry(alternateBossBarFix);
         list.addSingleOptionEntry(displayTextColor);
