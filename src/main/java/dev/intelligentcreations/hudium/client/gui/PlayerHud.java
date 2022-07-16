@@ -1,7 +1,11 @@
 package dev.intelligentcreations.hudium.client.gui;
 
 import dev.intelligentcreations.hudium.HudiumClient;
-import dev.intelligentcreations.hudium.api.info.plugin.*;
+import dev.intelligentcreations.hudium.api.info.plugin.BlockInfoPlugin;
+import dev.intelligentcreations.hudium.api.info.plugin.EntityInfoPlugin;
+import dev.intelligentcreations.hudium.api.info.plugin.InfoPluginHandler;
+import dev.intelligentcreations.hudium.api.info.plugin.context.BlockInfoPluginContext;
+import dev.intelligentcreations.hudium.api.info.plugin.context.EntityInfoPluginContext;
 import dev.intelligentcreations.hudium.mixin.ClientFrameRateAccessor;
 import dev.intelligentcreations.hudium.mixin.ClientPlayerInteractionManagerAccessor;
 import dev.intelligentcreations.hudium.mixin.MusicTrackerAccessor;
@@ -26,13 +30,15 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.CompassItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.sound.MusicSound;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.*;
-import net.minecraft.util.math.*;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.GameMode;
@@ -113,8 +119,9 @@ public class PlayerHud {
                         for (int q = 0; q < InfoPluginHandler.getPlugins().size(); q++) {
                             if (InfoPluginHandler.getPlugins().get(q) instanceof BlockInfoPlugin plugin) {
                                 if (plugin.enabled()) {
-                                    plugin.addInfo(matrices, client, camera, tickDelta, textRenderer, state, bhr.getBlockPos(), i, j + m);
-                                    if (plugin.occupySpace()) m += 9 * plugin.occupySpaceLines();
+                                    BlockInfoPluginContext context = BlockInfoPluginContext.of(matrices, client, camera, tickDelta, textRenderer, state, bhr.getBlockPos());
+                                    plugin.addInfo(context);
+                                    m += 9 * (context.getLines() - 1);
                                 }
                             }
                         }
@@ -141,10 +148,9 @@ public class PlayerHud {
                 if (!InfoPluginHandler.getPlugins().isEmpty()) {
                     for (int q = 0; q < InfoPluginHandler.getPlugins().size(); q++) {
                         if (InfoPluginHandler.getPlugins().get(q) instanceof EntityInfoPlugin plugin) {
-                            if (plugin.enabled()) {
-                                plugin.addInfo(matrices, client, camera, tickDelta, textRenderer, entity, i, j + m);
-                                if (plugin.occupySpace()) m += 9 * plugin.occupySpaceLines();
-                            }
+                            EntityInfoPluginContext context = EntityInfoPluginContext.of(matrices, client, camera, tickDelta, textRenderer, entity);
+                            plugin.addInfo(context);
+                            m += 9 * (context.getLines() - 1);
                         }
                     }
                 }

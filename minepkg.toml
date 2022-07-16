@@ -1,0 +1,27 @@
+
+# Preview of the minepkg.toml format! Could break anytime!
+manifestVersion = 0
+
+[package]
+  type = "mod"
+  name = "hudium"
+  description = "Tons of HUD tweaks including player stats, block/entity info, durability info, etc. No more pain installing that many mods!"
+  version = "1.4.3"
+  platform = "fabric"
+  license = "MIT License"
+  source = "https://github.com/IntelligentCreations/Hudium/"
+  author = "pkstDev"
+
+# These are global requirements
+[requirements]
+  minecraft = "1.19.*"
+  fabricLoader = ">=0.14.6"
+
+[dependencies]
+  fabric = "*"
+
+[dev]
+  buildCommand = "./gradlew build"
+
+  [dev.dependencies]
+    test-mansion = "*"

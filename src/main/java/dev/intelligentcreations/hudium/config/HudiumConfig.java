@@ -60,7 +60,7 @@ public class HudiumConfig implements Config {
     public boolean displayGameTime = true;
 
     @Comment(value = "Specify whether the BGM info will be displayed.")
-    public boolean displayBGMInfo = true;
+    public boolean displayBGMInfo = false;
 
     @Comment(value = "Specify whether specific tools are required holding in hands for some info.")
     public boolean holdToolsForInfo = false;

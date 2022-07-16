@@ -22,6 +22,7 @@ import java.util.function.Supplier;
 
 // From cimtb, licensed under MIT
 // Grabbed because I have no clue about how to implement mining level detection
+@SuppressWarnings("unchecked")
 public final class ToolHandler {
     public static final List<ToolHandler> TOOL_HANDLERS = Lists.newArrayList();
 

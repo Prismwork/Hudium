@@ -1,6 +1,7 @@
 package dev.intelligentcreations.hudium.plugin.info;
 
 import dev.intelligentcreations.hudium.api.info.plugin.BlockInfoPlugin;
+import dev.intelligentcreations.hudium.api.info.plugin.context.BlockInfoPluginContext;
 import dev.intelligentcreations.hudium.mixin.ClientPlayerInteractionManagerAccessor;
 import dev.intelligentcreations.hudium.util.TextRendererUtil;
 import net.minecraft.block.BlockState;
@@ -12,19 +13,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 
 public class BlockBreakProgressPlugin implements BlockInfoPlugin {
-    private boolean occupySpace = false;
-
     @Override
-    public void addInfo(MatrixStack matrices, MinecraftClient client, PlayerEntity camera, float tickDelta, TextRenderer textRenderer, BlockState state, BlockPos pos, int renderX, int renderY) {
-        int progress = (int) (((ClientPlayerInteractionManagerAccessor) client.interactionManager).getCurrentBreakingProgress() * 100);
-        occupySpace = progress > 0;
-        if (occupySpace) {
-            TextRendererUtil.renderText(textRenderer, matrices, I18n.translate("info.hudium.breakProgress") + progress + "%", renderX, renderY, 5592405);
+    public void addInfo(BlockInfoPluginContext context) {
+        int progress = (int) (((ClientPlayerInteractionManagerAccessor) context.getClient().interactionManager).getCurrentBreakingProgress() * 100);
+        if (progress > 0) {
+            context.renderText(I18n.translate("info.hudium.breakProgress") + progress + "%", 5592405);
         }
-    }
-
-    @Override
-    public boolean occupySpace() {
-        return occupySpace;
     }
 }
