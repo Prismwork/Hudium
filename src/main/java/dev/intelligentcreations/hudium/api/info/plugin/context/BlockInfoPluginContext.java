@@ -4,6 +4,7 @@ import dev.intelligentcreations.hudium.HudiumClient;
 import dev.intelligentcreations.hudium.config.HudiumConfig;
 import dev.intelligentcreations.hudium.util.TextRendererUtil;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.FluidBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -80,13 +81,17 @@ public class BlockInfoPluginContext implements PluginContext {
 
     @Override
     public void renderText(Text text, int color) {
-        TextRendererUtil.renderText(textRenderer, matrices, text, cfg.displayInfoX + 17, cfg.displayInfoY + 9 * lines, color);
+        boolean hasIcon = getState().getBlock().getPickStack(getPlayer().getWorld(), getPos(), getState()) != null
+                && !(getState().getBlock() instanceof FluidBlock);
+        TextRendererUtil.renderText(textRenderer, matrices, text, hasIcon ? cfg.displayInfoX + 17 : cfg.displayInfoX, cfg.displayInfoY + 9 * lines, color);
         lines += 1;
     }
 
     @Override
     public void renderText(String text, int color) {
-        TextRendererUtil.renderText(textRenderer, matrices, text, cfg.displayInfoX + 17, cfg.displayInfoY + 9 * lines, color);
+        boolean hasIcon = getState().getBlock().getPickStack(getPlayer().getWorld(), getPos(), getState()) != null
+                && !(getState().getBlock() instanceof FluidBlock);
+        TextRendererUtil.renderText(textRenderer, matrices, text, hasIcon ? cfg.displayInfoX + 17 : cfg.displayInfoX, cfg.displayInfoY + 9 * lines, color);
         lines += 1;
     }
 

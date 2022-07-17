@@ -16,7 +16,6 @@ import org.jetbrains.annotations.Nullable;
 @Environment(EnvType.CLIENT)
 public class HudiumConfigScreen extends SpruceScreen {
     private final Screen parent;
-    private SpruceOptionListWidget list;
 
     public HudiumConfigScreen(@Nullable Screen parent) {
         super(Text.translatable("config.hudium.hudium-config"));
@@ -30,10 +29,10 @@ public class HudiumConfigScreen extends SpruceScreen {
     @Override
     protected void init() {
         super.init();
-        this.list = HudiumClient.configScreenBase.buildOptionList(Position.of(0, 22), this.width, this.height - 35 - 22);
+        SpruceOptionListWidget list = HudiumClient.configScreenBase.buildOptionList(Position.of(0, 22), this.width, this.height - 35 - 22);
         HudiumClient.configScreenBase.resetConsumer = btn ->
                 this.init(this.client, this.client.getWindow().getScaledWidth(), this.client.getWindow().getScaledHeight());
-        this.addDrawableChild(this.list);
+        this.addDrawableChild(list);
         this.addDrawableChild(new SpruceButtonWidget(Position.of(this, this.width / 2 - 75, this.height - 29), 150, 20, SpruceTexts.GUI_DONE,
                 btn -> {
             HudiumClient.CONFIG.save();

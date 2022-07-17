@@ -2,17 +2,13 @@ package dev.intelligentcreations.hudium.plugin.info;
 
 import dev.intelligentcreations.hudium.api.info.plugin.BlockInfoPlugin;
 import dev.intelligentcreations.hudium.api.info.plugin.context.BlockInfoPluginContext;
-import dev.intelligentcreations.hudium.util.TextRendererUtil;
 import dev.intelligentcreations.hudium.util.ToolHandler;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FluidBlock;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -26,8 +22,6 @@ public class BlockMiningLevelPlugin implements BlockInfoPlugin {
     public void addInfo(BlockInfoPluginContext context) {
         BlockState state = context.getState();
         PlayerEntity camera = context.getPlayer();
-        BlockPos pos = context.getPos();
-        boolean absolutelyNotMineable = state.isAir() || state.getHardness(camera.getWorld(), pos) == -1 || state.getBlock() instanceof FluidBlock || state.getBlock() == Blocks.REINFORCED_DEEPSLATE || state.getBlock() == Blocks.POWDER_SNOW;
         Optional<Pair<ToolHandler, Integer>> optionalEffectiveTool = ToolHandler.TOOL_HANDLERS.stream()
                 .map(handler -> (Pair<ToolHandler, Integer>) new MutablePair<>(handler, handler.supportsBlock(state, camera)))
                 .min(Comparator.comparing(Pair::getRight, Comparator.nullsLast(Comparator.naturalOrder())));

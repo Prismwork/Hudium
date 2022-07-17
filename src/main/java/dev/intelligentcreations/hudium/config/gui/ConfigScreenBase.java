@@ -2,7 +2,6 @@ package dev.intelligentcreations.hudium.config.gui;
 
 import dev.intelligentcreations.hudium.HudiumClient;
 import dev.intelligentcreations.hudium.config.HudiumConfig;
-import dev.intelligentcreations.hudium.config.misc.FloatAndDoubleShowMode;
 import dev.lambdaurora.spruceui.Position;
 import dev.lambdaurora.spruceui.option.*;
 import dev.lambdaurora.spruceui.widget.SpruceButtonWidget;

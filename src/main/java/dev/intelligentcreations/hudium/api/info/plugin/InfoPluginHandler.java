@@ -8,6 +8,7 @@ import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("ALL")
 @Environment(EnvType.CLIENT)
 public class InfoPluginHandler {
     private static final List<InfoPlugin> plugins = new ArrayList<>();

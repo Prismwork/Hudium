@@ -7,5 +7,5 @@ public interface InfoPlugin<T extends PluginContext> {
         return true;
     }
 
-    void addInfo(T info);
+    void addInfo(T context);
 }

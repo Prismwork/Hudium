@@ -3,13 +3,7 @@ package dev.intelligentcreations.hudium.plugin.info;
 import dev.intelligentcreations.hudium.HudiumClient;
 import dev.intelligentcreations.hudium.api.info.plugin.EntityInfoPlugin;
 import dev.intelligentcreations.hudium.api.info.plugin.context.EntityInfoPluginContext;
-import dev.intelligentcreations.hudium.util.TextRendererUtil;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 
 public class EntityHealthPlugin implements EntityInfoPlugin {
     @Override

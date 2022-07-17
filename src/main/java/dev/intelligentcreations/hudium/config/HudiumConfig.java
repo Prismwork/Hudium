@@ -104,7 +104,7 @@ public class HudiumConfig implements Config {
         cfg.displayNetworkLatency = true;
         cfg.displayBiomeInfo = true;
         cfg.displayGameTime = true;
-        cfg.displayBGMInfo = true;
+        cfg.displayBGMInfo = false;
         cfg.holdToolsForInfo = false;
         cfg.alternateBossBarFix = false;
         cfg.renderShadowForText = true;
