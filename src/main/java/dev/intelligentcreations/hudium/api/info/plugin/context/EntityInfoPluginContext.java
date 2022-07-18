@@ -17,6 +17,7 @@ public class EntityInfoPluginContext implements PluginContext {
     private final float tickDelta;
     private final TextRenderer textRenderer;
     private final Entity target;
+    private final float startY;
     private int lines;
 
     private final HudiumConfig cfg = HudiumClient.CONFIG;
@@ -26,13 +27,15 @@ public class EntityInfoPluginContext implements PluginContext {
                                       PlayerEntity player,
                                       float tickDelta,
                                       TextRenderer textRenderer,
-                                      Entity target) {
+                                      Entity target,
+                                      float startY) {
         this.matrices = matrices;
         this.client = client;
         this.player = player;
         this.tickDelta = tickDelta;
         this.textRenderer = textRenderer;
         this.target = target;
+        this.startY = startY;
         this.lines = 1;
     }
 
@@ -41,8 +44,9 @@ public class EntityInfoPluginContext implements PluginContext {
                                              PlayerEntity player,
                                              float tickDelta,
                                              TextRenderer textRenderer,
-                                             Entity target) {
-        return new EntityInfoPluginContext(matrices, client, player, tickDelta, textRenderer, target);
+                                             Entity target,
+                                             float startY) {
+        return new EntityInfoPluginContext(matrices, client, player, tickDelta, textRenderer, target, startY);
     }
 
     public MatrixStack getMatrices() {
@@ -70,12 +74,12 @@ public class EntityInfoPluginContext implements PluginContext {
     }
 
     public void renderText(Text text, int color) {
-        TextRendererUtil.renderText(textRenderer, matrices, text, cfg.displayInfoX, cfg.displayInfoY + 9 * lines, color);
+        TextRendererUtil.renderText(textRenderer, matrices, text, cfg.displayInfoX, cfg.displayInfoY + startY + 9 * (lines - 1), color);
         lines += 1;
     }
 
     public void renderText(String text, int color) {
-        TextRendererUtil.renderText(textRenderer, matrices, text, cfg.displayInfoX, cfg.displayInfoY + 9 * lines, color);
+        TextRendererUtil.renderText(textRenderer, matrices, text, cfg.displayInfoX, cfg.displayInfoY + startY + 9 * (lines - 1), color);
         lines += 1;
     }
 

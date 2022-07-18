@@ -20,6 +20,7 @@ public class BlockInfoPluginContext implements PluginContext {
     private final TextRenderer textRenderer;
     private final BlockState state;
     private final BlockPos pos;
+    private final float startY;
     private int lines;
 
     private final HudiumConfig cfg = HudiumClient.CONFIG;
@@ -30,7 +31,8 @@ public class BlockInfoPluginContext implements PluginContext {
                                      float tickDelta,
                                      TextRenderer textRenderer,
                                      BlockState state,
-                                     BlockPos pos) {
+                                     BlockPos pos,
+                                     float startY) {
         this.matrices = matrices;
         this.client = client;
         this.player = player;
@@ -38,6 +40,7 @@ public class BlockInfoPluginContext implements PluginContext {
         this.textRenderer = textRenderer;
         this.state = state;
         this.pos = pos;
+        this.startY = startY;
         this.lines = 1;
     }
 
@@ -47,8 +50,9 @@ public class BlockInfoPluginContext implements PluginContext {
                                             float tickDelta,
                                             TextRenderer textRenderer,
                                             BlockState state,
-                                            BlockPos pos) {
-        return new BlockInfoPluginContext(matrices, client, player, tickDelta, textRenderer, state, pos);
+                                            BlockPos pos,
+                                            float startY) {
+        return new BlockInfoPluginContext(matrices, client, player, tickDelta, textRenderer, state, pos, startY);
     }
 
     public MatrixStack getMatrices() {
@@ -83,7 +87,7 @@ public class BlockInfoPluginContext implements PluginContext {
     public void renderText(Text text, int color) {
         boolean hasIcon = getState().getBlock().getPickStack(getPlayer().getWorld(), getPos(), getState()) != null
                 && !(getState().getBlock() instanceof FluidBlock);
-        TextRendererUtil.renderText(textRenderer, matrices, text, hasIcon ? cfg.displayInfoX + 17 : cfg.displayInfoX, cfg.displayInfoY + 9 * lines, color);
+        TextRendererUtil.renderText(textRenderer, matrices, text, hasIcon ? cfg.displayInfoX + 17 : cfg.displayInfoX, cfg.displayInfoY + startY + 9 * (lines - 1), color);
         lines += 1;
     }
 
@@ -91,7 +95,7 @@ public class BlockInfoPluginContext implements PluginContext {
     public void renderText(String text, int color) {
         boolean hasIcon = getState().getBlock().getPickStack(getPlayer().getWorld(), getPos(), getState()) != null
                 && !(getState().getBlock() instanceof FluidBlock);
-        TextRendererUtil.renderText(textRenderer, matrices, text, hasIcon ? cfg.displayInfoX + 17 : cfg.displayInfoX, cfg.displayInfoY + 9 * lines, color);
+        TextRendererUtil.renderText(textRenderer, matrices, text, hasIcon ? cfg.displayInfoX + 17 : cfg.displayInfoX, cfg.displayInfoY + startY + 9 * (lines - 1), color);
         lines += 1;
     }
 

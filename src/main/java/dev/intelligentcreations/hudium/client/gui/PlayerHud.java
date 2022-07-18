@@ -119,7 +119,7 @@ public class PlayerHud {
                         for (int q = 0; q < InfoPluginHandler.getPlugins().size(); q++) {
                             if (InfoPluginHandler.getPlugins().get(q) instanceof BlockInfoPlugin plugin) {
                                 if (plugin.enabled()) {
-                                    BlockInfoPluginContext context = BlockInfoPluginContext.of(matrices, client, camera, tickDelta, textRenderer, state, bhr.getBlockPos());
+                                    BlockInfoPluginContext context = BlockInfoPluginContext.of(matrices, client, camera, tickDelta, textRenderer, state, bhr.getBlockPos(), m);
                                     plugin.addInfo(context);
                                     m += 9 * (context.getLines() - 1);
                                 }
@@ -148,7 +148,7 @@ public class PlayerHud {
                 if (!InfoPluginHandler.getPlugins().isEmpty()) {
                     for (int q = 0; q < InfoPluginHandler.getPlugins().size(); q++) {
                         if (InfoPluginHandler.getPlugins().get(q) instanceof EntityInfoPlugin plugin) {
-                            EntityInfoPluginContext context = EntityInfoPluginContext.of(matrices, client, camera, tickDelta, textRenderer, entity);
+                            EntityInfoPluginContext context = EntityInfoPluginContext.of(matrices, client, camera, tickDelta, textRenderer, entity, m);
                             plugin.addInfo(context);
                             m += 9 * (context.getLines() - 1);
                         }
