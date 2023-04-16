@@ -4,15 +4,15 @@
   "version": "${version}",
 
   "name": "Hudium",
-  "description": "Tons of HUD tweaks because I am too lazy to install that many libraries",
+  "description": "Highly customizable HUD mod.",
   "authors": [
-    "pkstDev"
+    "Flamarine"
   ],
   "contributors": [
     "Precizne"
   ],
 
-  "license": "MIT License",
+  "license": "MIT",
   "icon": "assets/hudium/icon.png",
 
   "environment": "client",
@@ -20,10 +20,8 @@
     "client": [
       "dev.intelligentcreations.hudium.HudiumClient"
     ],
-    "hudium_info": [
-      "dev.intelligentcreations.hudium.plugin.info.BlockBreakProgressPlugin",
-      "dev.intelligentcreations.hudium.plugin.info.EntityHealthPlugin",
-      "dev.intelligentcreations.hudium.plugin.info.BlockMiningLevelPlugin"
+    "hudium:plugin": [
+      "dev.intelligentcreations.hudium.impl.DefaultPlugin"
     ]
   },
   "mixins": [
@@ -33,7 +31,7 @@
   "depends": {
     "fabricloader": ">=0.14.6",
     "fabric": "*",
-    "minecraft": "1.19.*",
+    "minecraft": "1.19.4",
     "java": ">=17"
   }
 }

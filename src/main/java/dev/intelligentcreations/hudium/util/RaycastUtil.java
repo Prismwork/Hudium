@@ -1,6 +1,5 @@
 package dev.intelligentcreations.hudium.util;
 
-import dev.intelligentcreations.hudium.HudiumClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.predicate.entity.EntityPredicates;
@@ -19,7 +18,7 @@ public class RaycastUtil {
     }
 
     public static HitResult getBlockHitResult(Entity source, float tickDelta) {
-        HitResult result = source.raycast(4.5d, tickDelta, HudiumClient.CONFIG.displayFluidInfo);
+        HitResult result = source.raycast(4.5d, tickDelta, false);
         if (result == null) return MISS;
         return result;
     }

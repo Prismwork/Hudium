@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.12-SNAPSHOT'
+	id 'fabric-loom' version '1.1-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -34,11 +34,9 @@ dependencies {
 
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	// We use Luligabi1's fork here since there's no release of Omega Config for 1.19 for now
-	include("com.github.Luligabi1.omega-config:omega-config-base:draft~builder-SNAPSHOT")
-	modImplementation("com.github.Luligabi1.omega-config:omega-config-base:draft~builder-SNAPSHOT")
-
-	include modImplementation("dev.lambdaurora:spruceui:${project.spruceui_version}")
+	modApi include("me.shedaniel.cloth:cloth-config-fabric:10.0.96") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
 }
 
 processResources {

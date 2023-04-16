@@ -4,16 +4,13 @@
   "package": "dev.intelligentcreations.hudium.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "SimpleRegistryAccessor"
   ],
   "client": [
     "BossBarHudAccessor",
     "ClientFrameRateAccessor",
     "ClientPlayerInteractionManagerAccessor",
-    "GameMenuScreenMixin",
     "InGameHudMixin",
-    "MusicTrackerAccessor",
-    "TitleScreenMixin"
+    "MusicTrackerAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
