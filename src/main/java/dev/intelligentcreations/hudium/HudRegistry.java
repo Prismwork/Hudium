@@ -1,38 +1,74 @@
 package dev.intelligentcreations.hudium;
 
-import dev.intelligentcreations.hudium.api.hud.ComponentHolder;
+import com.google.common.collect.Lists;
+import dev.intelligentcreations.hudium.api.hud.Component;
+import dev.intelligentcreations.hudium.api.hud.ComponentType;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnmodifiableView;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
-public class HudRegistry implements Iterable<ComponentHolder> {
-    private final Map<Identifier, ComponentHolder> components;
+public final class HudRegistry implements Iterable<ComponentType<?>> {
+    private final Map<Identifier, ComponentType<?>> components;
     private boolean frozen;
 
+    @ApiStatus.Internal
     HudRegistry() {
         components = new HashMap<>();
         frozen = false;
     }
 
-    public void register(Identifier id, ComponentHolder component) {
+    public <C extends Component> ComponentType<C> register(@NotNull Identifier id, @NotNull ComponentType<C> component) {
         if (frozen) throw new RuntimeException("HUD component registry already frozen");
+        if (components.containsKey(id)) Constants.LOGGER.warn("ComponentType with identifier \""
+                + id + "\" is already registered. Hudium will not attempt to register with the same identifier again.");
         components.putIfAbsent(id, component);
+        return component;
     }
 
-    public void freeze() {
+    @ApiStatus.Internal
+    void freeze() {
+        if (frozen) {
+            Constants.LOGGER.error("Already frozen! Are there someone calling \"freeze()\"?");
+            return;
+        }
         frozen = true;
     }
 
-    public int size() {
+    int size() {
         return components.size();
     }
 
     @NotNull
     @Override
-    public Iterator<ComponentHolder> iterator() {
+    public Iterator<ComponentType<?>> iterator() {
         return components.values().iterator();
+    }
+
+    @NotNull
+    @UnmodifiableView
+    public static Collection<ComponentType<?>> getRegistryEntries() {
+        return Collections.unmodifiableCollection(
+                Lists.newArrayList(
+                        HudiumClient.REGISTRY.iterator()
+                )
+        );
+    }
+
+    @Nullable
+    public static ComponentType<?> getEntry(@NotNull Identifier id) {
+        return HudiumClient.REGISTRY.components.get(id);
+    }
+
+    @Nullable
+    public static Identifier getId(@NotNull ComponentType<?> componentType) {
+        for (Map.Entry<Identifier, ComponentType<?>> entry
+                : HudiumClient.REGISTRY.components.entrySet()) {
+            if (entry.getValue().equals(componentType)) return entry.getKey();
+        }
+        return null;
     }
 }

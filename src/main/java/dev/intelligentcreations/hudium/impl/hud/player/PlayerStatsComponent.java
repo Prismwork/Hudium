@@ -1,6 +1,5 @@
 package dev.intelligentcreations.hudium.impl.hud.player;
 
-import dev.intelligentcreations.hudium.api.hud.Component;
 import dev.intelligentcreations.hudium.util.ColorUtil;
 import dev.intelligentcreations.hudium.util.Phys;
 import net.minecraft.client.MinecraftClient;
@@ -14,8 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class PlayerStatsComponent implements Component {
-    @Override
+public class PlayerStatsComponent {
     public void render(MatrixStack matrices, @NotNull PlayerEntity player, float tickDelta, Phys.Position position) {
         MinecraftClient client = MinecraftClient.getInstance();
         TextRenderer textRenderer = client.textRenderer;
@@ -58,7 +56,6 @@ public class PlayerStatsComponent implements Component {
         }
     }
 
-    @Override
     public Phys.Bounds getBounds() {
         return new Phys.Bounds(120, 20);
     }

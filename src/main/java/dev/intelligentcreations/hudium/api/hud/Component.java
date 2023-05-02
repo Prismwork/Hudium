@@ -9,4 +9,6 @@ public interface Component {
     void render(MatrixStack matrices, @NotNull PlayerEntity camera, float tickDelta, Phys.Position position);
 
     Phys.Bounds getBounds();
+
+    ComponentType<?> getType();
 }

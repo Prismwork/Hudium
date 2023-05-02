@@ -2,7 +2,7 @@ package dev.intelligentcreations.hudium.util;
 
 import java.awt.*;
 
-public class ColorUtil {
+public final class ColorUtil {
     public static int convertColor(String hexColor) {
         Color color;
         if (hexColor != null) {
@@ -12,8 +12,7 @@ public class ColorUtil {
             catch (NumberFormatException e) {
                 color = Color.WHITE;
             }
-        }
-        else {
+        } else {
             color = Color.WHITE;
         }
 

@@ -2,7 +2,6 @@ package dev.intelligentcreations.hudium.mixin;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.intelligentcreations.hudium.HudiumClient;
-import dev.intelligentcreations.hudium.api.hud.ComponentHolder;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,9 +20,7 @@ public abstract class InGameHudMixin {
         PlayerEntity player = this.getCameraPlayer();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         if (player != null) {
-            for (ComponentHolder holder : HudiumClient.REGISTRY) {
-                holder.getComponent().render(matrices, player, tickDelta, holder.getPos());
-            }
+            HudiumClient.HUD_MANAGER.render(matrices, player, tickDelta);
         }
         RenderSystem.disableBlend();
     }

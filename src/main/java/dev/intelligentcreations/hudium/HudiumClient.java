@@ -1,20 +1,26 @@
 package dev.intelligentcreations.hudium;
 
 import dev.intelligentcreations.hudium.api.HudiumPlugin;
+import dev.intelligentcreations.hudium.impl.hud.HudManager;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jetbrains.annotations.ApiStatus;
 
 public class HudiumClient implements ClientModInitializer {
-	public static final Logger LOGGER = LoggerFactory.getLogger("Hudium");
-	public static final String MOD_ID = "hudium";
-	public static final HudRegistry REGISTRY = new HudRegistry();
+	@ApiStatus.Internal
+	public static HudManager HUD_MANAGER;
+	@ApiStatus.Internal
+	static final HudRegistry REGISTRY = new HudRegistry();
 
 	@Override
 	public void onInitializeClient() {
-		FabricLoader.getInstance().getEntrypoints("hudium:plugin", HudiumPlugin.class).forEach(plugin -> plugin.registerComponents(REGISTRY));
+		Constants.LOGGER.info("Initializing plugins...");
+		FabricLoader.getInstance().getEntrypoints("hudium:plugin", HudiumPlugin.class)
+				.forEach(plugin -> plugin.registerComponents(REGISTRY));
 		REGISTRY.freeze();
-		LOGGER.info("Version " + FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata().getVersion() + " initialized with " + REGISTRY.size() + " active plugin(s).");
+		Constants.LOGGER.info("Registered " + REGISTRY.size() + " component types.");
+		HUD_MANAGER = new HudManager();
+		HUD_MANAGER.saveConfig();
+		Constants.LOGGER.info("Version " + FabricLoader.getInstance().getModContainer(Constants.MOD_ID).get().getMetadata().getVersion() + " initialized.");
 	}
 }
