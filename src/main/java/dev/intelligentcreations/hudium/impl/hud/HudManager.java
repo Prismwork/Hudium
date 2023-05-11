@@ -58,6 +58,9 @@ public final class HudManager {
                                         }
                                         reader.endObject();
                                     }
+                                    case "config" -> {
+
+                                    }
                                     default -> reader.skipValue();
                                 }
                             }

@@ -48,7 +48,7 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
 	include(libs.cloth.config)
-	modImplementation(libs.quilt.json5)
+	modApi(libs.quilt.json5)
 	include(libs.quilt.json5)
 }
 
