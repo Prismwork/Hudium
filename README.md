@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="art/icon.png" width="540" height="540" alt="Icon"/>
+<img src="art/icon.png" width="270" height="270" alt="Icon"/>
 
 # Hudium
 
