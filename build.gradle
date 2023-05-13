@@ -1,92 +1,108 @@
 plugins {
-	alias libs.plugins.fabric.loom
-	id 'maven-publish'
+    alias libs.plugins.unimined apply false
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'xyz.wagyourtail.unimined'
+    apply plugin: 'maven-publish'
 
-archivesBaseName = project.archives_base_name
-version = "${project.mod_version}+mc${libs.versions.minecraft.get()}"
-group = project.maven_group
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 
-repositories {
-	maven {
-		name = "JitPack"
-		url = "https://jitpack.io"
-	}
-	maven {
-		name = "Shedaniel's Maven"
-		url = "https://maven.shedaniel.me/"
-	}
-	maven {
-		name = "TerraformersMC"
-		url = "https://maven.terraformersmc.com/releases/"
-	}
-	maven {
-		name = "Gegy"
-		url = "https://maven.gegy.dev"
-	}
-	maven {
-		name = "QuiltMC Release"
-		url = "https://maven.quiltmc.org/repository/release/"
-	}
-	maven {
-		name = "QuiltMC Snapshot"
-		url = "https://maven.quiltmc.org/repository/snapshot/"
-	}
+    archivesBaseName = rootProject.archives_base_name
+    version = "${rootProject.version}+mc${libs.versions.minecraft.get()}"
+    group = rootProject.group
+
+    java {
+        withSourcesJar()
+    }
+
+    unimined {
+        useGlobalCache = false
+    }
+
+    repositories {
+        mavenCentral()
+        maven {
+            name = "MinecraftForge"
+            url = "https://maven.minecraftforge.net/"
+            metadataSources {
+                artifact()
+            }
+        }
+        maven {
+            name = "FabricMC"
+            url = "https://maven.fabricmc.net/"
+        }
+        maven {
+		    name = "JitPack"
+		    url = "https://jitpack.io"
+	    }
+	    maven {
+	    	name = "Shedaniel's Maven"
+	    	url = "https://maven.shedaniel.me/"
+	    }
+	    maven {
+	    	name = "TerraformersMC"
+	    	url = "https://maven.terraformersmc.com/releases/"
+	    }
+	    maven {
+	    	name = "Gegy Maven"
+	    	url = "https://maven.gegy.dev"
+	    }
+	    maven {
+	    	name = "QuiltMC Release"
+	    	url = "https://maven.quiltmc.org/repository/release/"
+	    }
+	    maven {
+	    	name = "QuiltMC Snapshot"
+	    	url = "https://maven.quiltmc.org/repository/snapshot/"
+	    }
+    }
+
+    dependencies {
+        minecraft rootProject.libs.minecraft
+
+        mappings variantOf(rootProject.libs.intermediary) { classifier 'v2' }
+        mappings variantOf(rootProject.libs.quilt.mappings) { classifier 'intermediary-v2' }
+
+        implementation rootProject.libs.quilt.json5
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+
+        var version = 17
+        if (JavaVersion.current().isJava9Compatible()) {
+            options.release = version
+        }
+    }
+
+    task removeDist(type: Delete) {
+        delete new File(rootProject.rootDir, "dist")
+    }
+
+    clean.finalizedBy(removeDist)
+}
+
+minecraft {
+    runs.off = true
+    combinedSourceSets = [sourceSets.main]
+}
+
+remapJar {
+    target = "quilt"
 }
 
 dependencies {
-	minecraft libs.minecraft
-	mappings variantOf(libs.quilt.mappings) { classifier 'intermediary-v2' }
-	modImplementation libs.fabric.loader
-
-	modImplementation libs.fabric.api
-
-	modApi(libs.quilt.json5)
-	include(libs.quilt.json5)
-}
-
-processResources {
-	inputs.property "version", project.version
-
-	filesMatching("fabric.mod.json") {
-		expand "version": project.version
-	}
-}
-
-tasks.withType(JavaCompile).configureEach {
-	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
-	it.options.release = 17
-}
-
-java {
-	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-	// if it is present.
-	// If you remove this line, sources will not be generated.
-	withSourcesJar()
+    implementation "org.spongepowered:mixin:0.8.5"
+    implementation "org.ow2.asm:asm:9.3"
 }
 
 jar {
-	from("LICENSE") {
-		rename { "${it}_${project.archivesBaseName}"}
-	}
-}
+    from sourceSets.main.output
 
-// configure the maven publication
-publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			from components.java
-		}
-	}
-
-	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-	repositories {
-		// Add repositories to publish to here.
-		// Notice: This block does NOT have the same function as the block in the top level.
-		// The repositories here will be used for publishing your artifact, not for
-		// retrieving dependencies.
-	}
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
 }

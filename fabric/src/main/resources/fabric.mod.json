@@ -18,7 +18,7 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "dev.intelligentcreations.hudium.HudiumClient"
+      "dev.intelligentcreations.hudium.HudiumClientFabricImpl"
     ],
     "hudium:plugin": [
       "dev.intelligentcreations.hudium.impl.DefaultPlugin"

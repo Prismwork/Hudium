@@ -1,0 +1,28 @@
+modLoader = "javafml"
+loaderVersion = "[45,)"
+#issueTrackerURL = ""
+license = "MIT"
+
+[[mods]]
+modId = "hudium"
+version = "${version}"
+displayName = "Hudium"
+authors = "Flamarine"
+description = '''
+Highly customizable HUD mod.
+'''
+logoFile = "icon.png"
+
+[[dependencies.hudium]]
+modId = "forge"
+mandatory = true
+versionRange = "[45,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.hudium]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.19.4,)"
+ordering = "NONE"
+side = "BOTH"

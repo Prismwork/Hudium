@@ -1,0 +1,68 @@
+plugins {
+    id "com.github.johnrengelman.shadow" version "8.1.1"
+}
+
+archivesBaseName = "${rootProject.archivesBaseName}-fabric"
+
+minecraft {
+    fabric()
+}
+
+configurations {
+    common
+    shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+}
+
+repositories {}
+
+dependencies {
+    fabric rootProject.libs.fabric.loader
+
+    modImplementation rootProject.libs.fabric.api
+
+    include rootProject.libs.quilt.json5
+
+    common project(path: ':'), { transitive false }
+    shadowCommon project(path: ':'), { transitive false }
+}
+
+shadowJar {
+    configurations = [project.configurations.shadowCommon]
+}
+
+remapJar {
+    inputFile.set shadowJar.archiveFile
+    dependsOn shadowJar
+}
+
+sourcesJar {
+    def commonSources = project(":").sourcesJar
+    dependsOn commonSources
+    from commonSources.archiveFile.map { zipTree(it) }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
+
+	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+	repositories {
+		// Add repositories to publish to here.
+		// Notice: This block does NOT have the same function as the block in the top level.
+		// The repositories here will be used for publishing your artifact, not for
+		// retrieving dependencies.
+	}
+}
+
+task createDist(type: Copy) {
+    from(new File(project.buildDir, "libs"))
+    into new File(rootProject.rootDir, "dist")
+}
+
+build.finalizedBy(createDist)
