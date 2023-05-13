@@ -84,6 +84,20 @@ allprojects {
     }
 
     clean.finalizedBy(removeDist)
+
+    jar {
+        from("LICENSE") {
+            rename { "${it}_${project.archivesBaseName}"}
+        }
+    }
+
+    processResources {
+        inputs.property "version", project.version
+
+        filesMatching(["fabric.mod.json", "mods.toml"]) {
+            expand "version": project.version
+        }
+    }
 }
 
 minecraft {

@@ -26,10 +26,10 @@
 
 .idea
 
-common/build
-common/.gradle
-common/.idea
-common/run
+build/
+.gradle/
+.idea/
+run/
 
 fabric/build
 fabric/.gradle
@@ -40,9 +40,6 @@ forge/build
 forge/.gradle
 forge/.idea
 forge/run
-
-build/
-
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*

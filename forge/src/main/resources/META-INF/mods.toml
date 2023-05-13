@@ -1,6 +1,6 @@
 modLoader = "javafml"
 loaderVersion = "[45,)"
-#issueTrackerURL = ""
+issueTrackerURL = "https://github.com/IntelligentCreations/Hudium/issues"
 license = "MIT"
 
 [[mods]]
