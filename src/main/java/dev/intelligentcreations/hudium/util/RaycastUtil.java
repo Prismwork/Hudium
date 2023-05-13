@@ -8,6 +8,8 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 
 public final class RaycastUtil {
+    private RaycastUtil() {}
+
     public static HitResult getEntityHitResult(Entity source, float tickDelta) {
         Vec3d rotationVec = source.getRotationVec(tickDelta);
         Vec3d start = source.getClientCameraPosVec(tickDelta);

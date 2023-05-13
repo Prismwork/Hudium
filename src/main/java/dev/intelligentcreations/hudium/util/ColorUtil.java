@@ -3,6 +3,8 @@ package dev.intelligentcreations.hudium.util;
 import java.awt.*;
 
 public final class ColorUtil {
+    private ColorUtil() {}
+
     public static int convertColor(String hexColor) {
         Color color;
         if (hexColor != null) {

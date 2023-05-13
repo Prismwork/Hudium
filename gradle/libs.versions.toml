@@ -5,7 +5,6 @@ quilt_mappings = "1.19.4+build.10"
 fabric_loader = "0.14.19"
 fabric_api = "0.78.0+1.19.4"
 
-cloth_config = "10.0.96"
 quilt_json5 = "1.0.3"
 
 [libraries]
@@ -15,7 +14,6 @@ quilt_mappings = { module = "org.quiltmc:quilt-mappings", version.ref = "quilt_m
 fabric_loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric_loader" }
 fabric_api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric_api" }
 
-cloth_config = { module = "me.shedaniel.cloth:cloth-config-fabric", version.ref = "cloth_config" }
 quilt_json5 = { module = "org.quiltmc:quilt-json5", version.ref = "quilt_json5" }
 
 [plugins]

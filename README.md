@@ -1,33 +1,29 @@
-<img src="nice_pic.png" width="960" height="504" alt="nice pic hahaye"/>
+<div align="center">
+
+<img src="art/icon.png" width="540" height="540" alt="Icon"/>
 
 # Hudium
 
-*Roughly enough HUD tweaks*
+Extensible and customizable HUD mod
 
-[![](https://jitpack.io/v/IntelligentCreations/Hudium.svg)](https://jitpack.io/#IntelligentCreations/Hudium)
+</div>
 
-This mod adds tons of HUD tweaks including player stats, block/entity info, etc. Everything can be toggled via the config.
+### Introduction
 
-### Setting up development environment
+Hudium is sort of "yet another" HUD mod for Minecraft,
+aiming to be easy to configure by users and fully extensible for developers.
 
-Add this to your build.gradle:
-```groovy
-repositories {
-	// [...]
-	maven { url 'https://jitpack.io' }
-}
+### Features
 
-dependencies {
-	// [...]
-	modImplementation "com.github.IntelligentCreations:Hudium:${project.hudium_version}"
-}
-```
+* Fully customizable HUD system with simple drag-and-drop arrangement
+* Enabling adjusting vanilla HUD components
+* Plugin support
 
-And in your gradle.properties:
-```properties
-hudium_version = <LATEST_VERSION>
-```
+### Development
 
-### Developing with Hudium
+Under construction. The mod will potentially be uploaded to Nova Committee Maven when it's finished.
 
-Go have a look at the [wiki](https://github.com/IntelligentCreations/Hudium/wiki).
+### License
+
+Everything except for the icon is licensed under [MIT License](LICENSE).
+Feel free to use any of the code you find useful and assets you find proper.

@@ -5,10 +5,14 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collection;
+
 public interface Component {
     void render(MatrixStack matrices, @NotNull PlayerEntity camera, float tickDelta, Phys.Position position);
 
-    Phys.Bounds getBounds();
+    void renderDefault(MatrixStack matrices, float tickDelta, Phys.Position pos);
+
+    Collection<Phys.Bounds> getBounds();
 
     ComponentType<?> getType();
 }

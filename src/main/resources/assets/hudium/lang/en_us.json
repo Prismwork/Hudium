@@ -1,5 +1,7 @@
 {
   "config.hudium.hudium-config": "Hudium Config",
+  "config.hudium.hudium-config.general": "General Settings",
+  "config.hudium.hudium-config.components": "Component Management",
 
   "info.hudium.ping": "Ping: ",
   "info.hudium.biome": "Biome: ",

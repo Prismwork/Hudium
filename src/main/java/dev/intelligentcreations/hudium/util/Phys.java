@@ -1,6 +1,8 @@
 package dev.intelligentcreations.hudium.util;
 
 public final class Phys {
+    private Phys() {}
+
     public record Bounds(int width, int height) {}
 
     public static class Position {

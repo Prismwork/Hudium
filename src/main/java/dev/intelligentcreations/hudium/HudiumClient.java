@@ -6,7 +6,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import org.jetbrains.annotations.ApiStatus;
 
-public class HudiumClient implements ClientModInitializer {
+public final class HudiumClient implements ClientModInitializer {
 	@ApiStatus.Internal
 	public static HudManager HUD_MANAGER;
 	@ApiStatus.Internal

@@ -10,7 +10,8 @@
     "ClientFrameRateAccessor",
     "ClientPlayerInteractionManagerAccessor",
     "InGameHudMixin",
-    "MusicTrackerAccessor"
+    "MusicTrackerAccessor",
+    "TitleScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
