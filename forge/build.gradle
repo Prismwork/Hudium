@@ -6,7 +6,10 @@ archivesBaseName = "${rootProject.archivesBaseName}-forge"
 
 minecraft {
     forge {
-        mixinConfig = ["hudium.mixins.json"]
+        mixinConfig = [
+                "hudium.mixins.json",
+                "hudium-forge.mixins.json"
+        ]
         devNamespace = "quilt"
         devFallbackNamespace = "intermediary"
     }

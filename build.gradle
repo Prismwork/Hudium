@@ -7,8 +7,8 @@ allprojects {
     apply plugin: 'xyz.wagyourtail.unimined'
     apply plugin: 'maven-publish'
 
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 
     archivesBaseName = rootProject.archives_base_name
     version = "${rootProject.version}+mc${libs.versions.minecraft.get()}"

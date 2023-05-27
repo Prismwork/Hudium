@@ -18,14 +18,15 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "dev.intelligentcreations.hudium.HudiumClientFabricImpl"
+      "dev.intelligentcreations.hudium.impl.fabric.HudiumClientFabricImpl"
     ],
     "hudium:plugin": [
       "dev.intelligentcreations.hudium.impl.DefaultPlugin"
     ]
   },
   "mixins": [
-    "hudium.mixins.json"
+    "hudium.mixins.json",
+    "hudium-fabric.mixins.json"
   ],
 
   "depends": {
